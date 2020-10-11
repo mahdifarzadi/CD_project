@@ -1,5 +1,5 @@
 from scanner.scanner import *
-
+#test
 
 def read_file():
     with open("input.txt") as file:
