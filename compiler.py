@@ -1,5 +1,5 @@
 from scanner.scanner import *
-#test
+
 
 def read_file():
     with open("input.txt") as file:
@@ -8,8 +8,9 @@ def read_file():
 
 def compile():
     input_text = read_file()
-    get_next_token(input_text)
-
+    #get_next_token(input_text)
+    lex = Lexer(input_text)
+    lex.make_tokens()
 
 if __name__ == '__main__':
     compile()
