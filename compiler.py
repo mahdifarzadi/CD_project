@@ -8,9 +8,10 @@ def read_file():
 
 def compile():
     input_text = read_file()
-    #get_next_token(input_text)
+    # print(get_next_token(input_text, 0))
     lex = Lexer(input_text)
-    lex.make_tokens()
+    lex.find_tokens()
+
 
 if __name__ == '__main__':
     compile()
