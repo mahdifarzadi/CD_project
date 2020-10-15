@@ -37,7 +37,7 @@ def get_next_token(text):
             #     pos += 1
             #     return ("e", text[index:pos]), pos
         else:
-            if Position.index >= len(text):
+            if Position.index >= len(text) and type(tokens_dfa[state]) is dict:
                 if state in comment_states:
                     # print("---------------", state, Position.index, Position.line)
                     if Position.index - first_index > 7:
@@ -46,6 +46,7 @@ def get_next_token(text):
                         text_value = text[first_index: Position.index]
                     return (get_error_type(text_value), text_value), line
                 # print("*********", state)
+
                 state = list(tokens_dfa[state].values())[-1]
                 # print("*********2", state)
             elif state in stars_states:
