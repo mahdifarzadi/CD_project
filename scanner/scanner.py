@@ -27,6 +27,7 @@ def get_next_token(text):
                 #     break
                 #     break
             else:
+
                 Position.advance(text)
                 text_value = text[first_index: Position.index]
                 # if re.search(get_error_type(text_value), text_value)
@@ -100,16 +101,25 @@ class Lexer:
 
     def find_tokens(self):
         tokens = {}
-
+        errors = {}
         # pos = 0
 
         while Position.index < len(self.text):
             (token, line) = get_next_token(self.text)
             #print(token)
-            if token[0] == "WHITESPACE":
+            if token[0] == "WHITESPACE" or token[0] == "COMMENT":
                 continue
+
+            #errors
+            if token[0] in error_names:
+                if line in errors:
+                    errors[line].append(token)
+                else:
+                    errors[line] = [token]
+
+
             #print(token,line)
-            if line in tokens:
+            elif line in tokens:
                 tokens[line].append(token)
             else:
                 tokens[line] = [token]
@@ -118,9 +128,15 @@ class Lexer:
             print(row,"-",tokens[row])
 
 
+        print("#### ERRORS #####")
+        for row in errors:
+            print(row,"-",errors[row])
+
         print("#### SYMBOL_TABLE #####")
         for i in range(len(symbol_table)):
             print(i," ",symbol_table[i])
+
+
         # print(Position.index)
 
             # self.advance()
