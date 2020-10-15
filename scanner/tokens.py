@@ -21,9 +21,11 @@ whitespace = "\s"
 
 keywords = ['if','else','void','int','while','break','switch','default','case','return','main']
 symbol_table = ['if','else','void','int','while','break','switch','default','case','return','main']
-error_names = ['Invalid number','Invalid input','Unmatched comment']
+error_names = ['Invalid number','Invalid input','Unmatched comment', 'Unclosed comment']
 
 stars_states = [2, 4, 9]
+
+comment_states = ['a', 'b', 'c', 'd', 'e']
 
 
 tokens_dfa = {0: {letter: 1, digit: 3, symbol: 5, '=': 6, '\*': 8, '\/': 'a', whitespace: 'f'},
@@ -40,6 +42,8 @@ tokens_dfa = {0: {letter: 1, digit: 3, symbol: 5, '=': 6, '\*': 8, '\/': 'a', wh
 def get_error_type(text):
     if re.search("\*\/",text):
         return 'Unmatched comment'
+    elif re.search('^/\*', text):
+        return 'Unclosed comment'
     elif re.search("^\d", text):
         return 'Invalid number'
     else:

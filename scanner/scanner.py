@@ -37,10 +37,25 @@ def get_next_token(text):
             #     pos += 1
             #     return ("e", text[index:pos]), pos
         else:
-            if state in stars_states:
-                Position.index -= 1
-            elif Position.index > len(text):
+            if Position.index >= len(text):
+                if state in comment_states:
+                    # print("---------------", state, Position.index, Position.line)
+                    if Position.index - first_index > 7:
+                        text_value = text[first_index: first_index + 7] + "..."
+                    else:
+                        text_value = text[first_index: Position.index]
+                    return (get_error_type(text_value), text_value), line
+                # print("*********", state)
                 state = list(tokens_dfa[state].values())[-1]
+                # print("*********2", state)
+            elif state in stars_states:
+                # print("+++++++++", state, Position.index, Position.line)
+                Position.index -= 1
+            # elif Position.index > len(text):
+            #     if state in comment_states:
+            #         print("---------------", state, Position.index, Position.line)
+            #     print("*********", state)
+            #     state = list(tokens_dfa[state].values())[-1]
 
             #KEYWORD
             if tokens_dfa[state] == "ID":
@@ -78,7 +93,7 @@ class Position:
     def advance(text):
         Position.index += 1
         # print(Position.index, Position.line)
-        if Position.index < len(text) and text[Position.index-1] == '\n':
+        if Position.index < len(text) and text[Position.index] == '\n':
             Position.line += 1
 
 
