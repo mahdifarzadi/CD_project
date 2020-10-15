@@ -40,6 +40,15 @@ def get_next_token(text):
                 Position.index -= 1
             elif Position.index > len(text):
                 state = list(tokens_dfa[state].values())[-1]
+
+            #KEYWORD
+            if tokens_dfa[state] == "ID":
+                if text[first_index:Position.index] in keywords:
+                    return ("KEYWORD", text[first_index: Position.index]),line
+                elif text[first_index:Position.index] not in symbol_table:
+                    symbol_table.append(text[first_index:Position.index])
+
+
             return (tokens_dfa[state], text[first_index: Position.index]), line
 
 
@@ -91,6 +100,7 @@ class Lexer:
 
     def find_tokens(self):
         tokens = {}
+
         # pos = 0
 
         while Position.index < len(self.text):
@@ -106,6 +116,11 @@ class Lexer:
         #print(tokens)
         for row in tokens:
             print(row,"-",tokens[row])
+
+
+        print("#### SYMBOL_TABLE #####")
+        for i in range(len(symbol_table)):
+            print(i," ",symbol_table[i])
         # print(Position.index)
 
             # self.advance()
