@@ -176,17 +176,20 @@ def write_tokens(tokens):
 
 def write_errors(errors):
     string = ""
-    for i, row in zip(errors.keys(), errors.values()):
-        string += str(i)
-        string += ".\t\t"
-        # print(row)
-        for t in row:
-            string += "("
-            string += t[1]
-            string += ", "
-            string += t[0]
-            string += ") "
-        string += "\n"
+    if len(errors) > 0:
+        for i, row in zip(errors.keys(), errors.values()):
+            string += str(i)
+            string += ".\t\t"
+            # print(row)
+            for t in row:
+                string += "("
+                string += t[1]
+                string += ", "
+                string += t[0]
+                string += ") "
+            string += "\n"
+    else:
+        string = "There is no lexical error."
 
     with open("lexical_errors.txt", 'w') as file:
         file.write(string)
