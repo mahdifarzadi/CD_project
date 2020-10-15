@@ -19,8 +19,8 @@ not_letter_and_digit = "[;:,\[\](){}+<=\/\*\s-]"
 symbol = "[;:,\[\](){}+<-]"
 whitespace = "\s"
 
-keywords = ['if','else','void','int','while','break','switch','default','case','return','main']
-symbol_table = ['if','else','void','int','while','break','switch','default','case','return','main']
+keywords = ['if','else','void','int','while','break','switch','default','case','return']
+symbol_table = ['if','else','void','int','while','break','switch','default','case','return']
 error_names = ['Invalid number','Invalid input','Unmatched comment', 'Unclosed comment']
 
 stars_states = [2, 4, 9]
