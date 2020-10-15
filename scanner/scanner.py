@@ -162,7 +162,7 @@ def write_tokens(tokens):
     string = ""
     for i, row in zip(tokens.keys(), tokens.values()):
         string += str(i)
-        string += ".\t\t"
+        string += ".\t"
         # print(row)
         for t in row:
             string += "("
@@ -180,7 +180,7 @@ def write_errors(errors):
     if len(errors) > 0:
         for i, row in zip(errors.keys(), errors.values()):
             string += str(i)
-            string += ".\t\t"
+            string += ".\t"
             # print(row)
             for t in row:
                 string += "("
@@ -200,7 +200,7 @@ def write_symbols(symbol_table):
     string = ""
     for i, symbol in zip(range(len(symbol_table)), symbol_table):
         string += str(i+1)
-        string += ".\t\t"
+        string += ".\t"
         # print(row)
         # for t in row:
         # string += "("
