@@ -15,7 +15,7 @@ not_digit = "[^0-9]"
 letter = "[A-Za-z]"
 letter_or_digit = letter + "|" + digit
 #not_letter_and_digit = "[^A-Za-z0-9]"
-not_letter_and_digit = "[;:,\[\](){}+<=\/\*\s-]"
+not_letter_and_digit = "[;:,\[\](){}+<=\/\*\r\t\f\v -]"
 symbol = "[;:,\[\](){}+<-]"
 whitespace = "\s"
 
@@ -29,7 +29,7 @@ comment_states = ['a', 'b', 'c', 'd', 'e']
 
 
 tokens_dfa = {0: {letter: 1, digit: 3, symbol: 5, '=': 6, '\*': 8, '\/': 'a', whitespace: 'f'},
-              1: {letter_or_digit: 1, not_letter_and_digit: 2}, 2: 'ID',
+              1: {letter_or_digit: 1, not_letter_and_digit: 2,'\n':'z'}, 2: 'ID','z': 'ID',
               3: {digit: 3, not_letter_and_digit: 4}, 4: 'NUM',
               5: 'SYMBOL',
               6: {'=': 5, '[^=]': 9}, 9: 'SYMBOL',

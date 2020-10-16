@@ -29,7 +29,12 @@ def get_next_token(text):
             else:
 
                 Position.advance(text)
+
                 text_value = text[first_index: Position.index]
+
+                #if it ends with "\n":
+                if re.search(".*\n$", text_value):
+                    text_value = text[first_index: Position.index-1]
                 # if re.search(get_error_type(text_value), text_value)
                 return (get_error_type(text_value), text_value), line
 
@@ -59,11 +64,16 @@ def get_next_token(text):
             #     state = list(tokens_dfa[state].values())[-1]
 
             # KEYWORD
+            if state == 'z':
+                text_value = text[first_index:Position.index-1]
+            else:
+                text_value = text[first_index:Position.index]
+
             if tokens_dfa[state] == "ID":
-                if text[first_index:Position.index] in keywords:
-                    return ("KEYWORD", text[first_index: Position.index]), line
-                elif text[first_index:Position.index] not in symbol_table:
-                    symbol_table.append(text[first_index:Position.index])
+                if text_value in keywords:
+                    return ("KEYWORD", text_value), line
+                elif text_value not in symbol_table:
+                    symbol_table.append(text_value)
 
             return (tokens_dfa[state], text[first_index: Position.index]), line
 
@@ -92,9 +102,11 @@ class Position:
     @staticmethod
     def advance(text):
         Position.index += 1
-        # print(Position.index, Position.line)
-        if Position.index < len(text) and text[Position.index - 1] == '\n':
+
+        if Position.index < len(text) and text[Position.index-1] == '\n':
+            #print(Position.index-1,end='*')
             Position.line += 1
+
 
 
 ######
@@ -121,7 +133,7 @@ class Lexer:
 
         while Position.index < len(self.text):
             (token, line) = get_next_token(self.text)
-            # print(token)
+            #print(token)
             if token[0] == "WHITESPACE" or token[0] == "COMMENT":
                 continue
 
