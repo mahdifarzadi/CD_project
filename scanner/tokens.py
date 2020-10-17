@@ -1,20 +1,10 @@
 import re
 
 
-# class Token:
-#     def __init__(self, type, value):
-#         self.type = type
-#         self.value = value
-#
-#     def __repr__(self):
-#         return '(%s, %s)' % (self.type, self.value)
-
-
 digit = "[0-9]"
 not_digit = "[^0-9]"
 letter = "[A-Za-z]"
 letter_or_digit = letter + "|" + digit
-#not_letter_and_digit = "[^A-Za-z0-9]"
 not_letter_and_digit = "[;:,\[\](){}+<=\/\*\r\t\f\v -]"
 symbol = "[;:,\[\](){}+<-]"
 whitespace = "\s"
@@ -26,7 +16,6 @@ error_names = ['Invalid number','Invalid input','Unmatched comment', 'Unclosed c
 stars_states = [2, 4, 9]
 
 comment_states = ['a', 'b', 'c', 'd', 'e']
-
 
 tokens_dfa = {0: {letter: 1, digit: 3, symbol: 5, '=': 6, '\*': 8, '\/': 'a', whitespace: 'f'},
               1: {letter_or_digit: 1, not_letter_and_digit: 2,'\n':'z'}, 2: 'ID','z': 'ID',
@@ -48,11 +37,3 @@ def get_error_type(text):
         return 'Invalid number'
     else:
         return 'Invalid input'
-
-
-if __name__ == '__main__':
-    print(re.search(not_letter_and_digit, "d"))
-
-
-
-
