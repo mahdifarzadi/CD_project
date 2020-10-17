@@ -1,5 +1,8 @@
 from scanner.scanner import *
 
+# mahdi farzadi  97106176
+# ali eslami najad 97105747
+
 
 # open file with 'file_name' name and return the file data
 def read_file(file_name):
