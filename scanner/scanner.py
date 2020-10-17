@@ -2,6 +2,7 @@ from compiler import write_file
 from scanner.tokens import *
 
 
+# function with while loop that return next tokens after the current position
 def get_next_token(text):
     first_index = Position.index
     line = Position.line
@@ -39,13 +40,14 @@ def get_next_token(text):
                     return ("KEYWORD", text_value), line
                 elif text_value not in symbol_table:
                     symbol_table.append(text_value)
-
             return (tokens_dfa[state], text[first_index: Position.index]), line
 
 
+# a class with static func that handle position index and line
 class Position:
     index = 0
     line = 1
+
     @staticmethod
     def advance(text):
         Position.index += 1
@@ -53,6 +55,7 @@ class Position:
             Position.line += 1
 
 
+# function that find all tokens of the text and write them in files
 def find_tokens(text):
     tokens = {}
     errors = {}
