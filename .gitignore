@@ -147,3 +147,4 @@ cython_debug/
 .idea/vcs.xml
 
 .idea/CD_project.iml
+.idea
