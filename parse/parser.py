@@ -29,7 +29,8 @@ def parse():
     non_terminals = get_non_terminals(first, follow)
     # print(terminals)
     # print(non_terminals)
-    generate_parsing_table(non_terminals, terminals, first, follow, grammar)
+    parsing_table = generate_parsing_table(non_terminals, terminals, first, follow, grammar)
+    print(*parsing_table, sep="\n")
 
 
 if __name__ == '__main__':
