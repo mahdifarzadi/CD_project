@@ -1,0 +1,53 @@
+ 	$	int	void	(	;	[	ID	,	{	break	if	while	return	switch	+	-	NUM	case	default	=	*	<	==	}	)	else	]	:
+Program		DeclarationList $	DeclarationList $																										
+DeclarationList	ε	Declaration DeclarationList	Declaration DeclarationList	ε	ε		ε		ε	ε	ε	ε	ε	ε	ε	ε	ε							ε					
+Declaration	sync	DeclarationInitial DeclarationPrime	DeclarationInitial DeclarationPrime	sync	sync		sync		sync	sync	sync	sync	sync	sync	sync	sync	sync							sync					
+DeclarationInitial		TypeSpecifier ID	TypeSpecifier ID	sync	sync	sync		sync																	sync				
+DeclarationPrime	sync	sync	sync	FunDeclarationPrime	VarDeclarationPrime	VarDeclarationPrime	sync		sync	sync	sync	sync	sync	sync	sync	sync	sync							sync					
+VarDeclarationPrime	sync	sync	sync	sync	;	[ NUM ] ;	sync		sync	sync	sync	sync	sync	sync	sync	sync	sync							sync					
+FunDeclarationPrime	sync	sync	sync	( Params ) CompoundStmt	sync		sync		sync	sync	sync	sync	sync	sync	sync	sync	sync							sync					
+TypeSpecifier		int	void				sync																						
+Params		int ID ParamPrime ParamList	void ParamListVoidAbtar																						sync				
+ParamListVoidAbtar							ID ParamPrime ParamList																		ε				
+ParamList								, Param ParamList																	ε				
+Param		DeclarationInitial ParamPrime	DeclarationInitial ParamPrime					sync																	sync				
+ParamPrime						[ ]		ε																	ε				
+CompoundStmt	sync	sync	sync	sync	sync		sync		{ DeclarationList StatementList }	sync	sync	sync	sync	sync	sync	sync	sync	sync	sync					sync		sync			
+StatementList				Statement StatementList	Statement StatementList		Statement StatementList		Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	ε	ε					ε					
+Statement				ExpressionStmt	ExpressionStmt		ExpressionStmt		CompoundStmt	ExpressionStmt	SelectionStmt	IterationStmt	ReturnStmt	SwitchStmt	ExpressionStmt	ExpressionStmt	ExpressionStmt	sync	sync					sync		sync			
+ExpressionStmt				Expression ;	;		Expression ;		sync	break ;	sync	sync	sync	sync	Expression ;	Expression ;	Expression ;	sync	sync					sync		sync			
+SelectionStmt				sync	sync		sync		sync	sync	if ( Expression ) Statement else Statement	sync	sync	sync	sync	sync	sync	sync	sync					sync		sync			
+IterationStmt				sync	sync		sync		sync	sync	sync	while ( Expression ) Statement	sync	sync	sync	sync	sync	sync	sync					sync		sync			
+ReturnStmt				sync	sync		sync		sync	sync	sync	sync	return ReturnStmtPrime	sync	sync	sync	sync	sync	sync					sync		sync			
+ReturnStmtPrime				Expression ;	;		Expression ;		sync	sync	sync	sync	sync	sync	Expression ;	Expression ;	Expression ;	sync	sync					sync		sync			
+SwitchStmt				sync	sync		sync		sync	sync	sync	sync	sync	switch ( Expression ) { CaseStmts DefaultStmt }	sync	sync	sync	sync	sync					sync		sync			
+CaseStmts																		CaseStmt CaseStmts	ε					ε					
+CaseStmt																		case NUM : StatementList	sync					sync					
+DefaultStmt																			default : StatementList					ε					
+Expression				SimpleExpressionZegond	sync		ID B	sync							SimpleExpressionZegond	SimpleExpressionZegond	SimpleExpressionZegond								sync		sync		
+B				SimpleExpressionPrime	ε	[ Expression ] H		ε							SimpleExpressionPrime	SimpleExpressionPrime				= Expression	SimpleExpressionPrime	SimpleExpressionPrime	SimpleExpressionPrime		ε		ε		
+H					ε			ε												= Expression	G D C				ε		ε		
+SimpleExpressionZegond				AdditiveExpressionZegond C	sync			sync							AdditiveExpressionZegond C	AdditiveExpressionZegond C	AdditiveExpressionZegond C								sync		sync		
+SimpleExpressionPrime				AdditiveExpressionPrime C	ε			ε							AdditiveExpressionPrime C	AdditiveExpressionPrime C					AdditiveExpressionPrime C				ε		ε		
+C					ε			ε														Relop AdditiveExpression	Relop AdditiveExpression		ε		ε		
+Relop				sync			sync								sync	sync	sync					<	==						
+AdditiveExpression				Term D	sync		Term D	sync							Term D	Term D	Term D								sync		sync		
+AdditiveExpressionPrime				TermPrime D	ε			ε													TermPrime D	ε	ε		ε		ε		
+AdditiveExpressionZegond				TermZegond D	sync			sync							TermZegond D	TermZegond D	TermZegond D					sync	sync		sync		sync		
+D					ε			ε							Addop Term D	Addop Term D						ε	ε		ε		ε		
+Addop				sync			sync								+	-	sync												
+Term				SignedFactor G	sync		SignedFactor G	sync							SignedFactor G	SignedFactor G	SignedFactor G					sync	sync		sync		sync		
+TermPrime				SignedFactorPrime G	ε			ε							ε	ε						ε	ε		ε		ε		
+TermZegond				SignedFactorZegond G	sync			sync							SignedFactorZegond G	SignedFactorZegond G	SignedFactorZegond G					sync	sync		sync		sync		
+G					ε			ε							ε	ε					* SignedFactor G	ε	ε		ε		ε		
+SignedFactor				Factor	sync		Factor	sync							+ Factor	- Factor	Factor				sync	sync	sync		sync		sync		
+SignedFactorPrime				FactorPrime	ε			ε							ε	ε					ε	ε	ε		ε		ε		
+SignedFactorZegond				FactorZegond	sync			sync							+ Factor	- Factor	FactorZegond				sync	sync	sync		sync		sync		
+Factor				( Expression )	sync		ID VarCallPrime	sync							sync	sync	NUM				sync	sync	sync		sync		sync		
+VarCallPrime				( Args )	ε	VarPrime		ε							ε	ε					ε	ε	ε		ε		ε		
+VarPrime					ε	[ Expression ]		ε							ε	ε					ε	ε	ε		ε		ε		
+FactorPrime				( Args )	ε			ε							ε	ε					ε	ε	ε		ε		ε		
+FactorZegond				( Expression )	sync			sync							sync	sync	NUM				sync	sync	sync		sync		sync		
+Args				ArgList			ArgList								ArgList	ArgList	ArgList								ε				
+ArgList				Expression ArgListPrime			Expression ArgListPrime								Expression ArgListPrime	Expression ArgListPrime	Expression ArgListPrime								sync				
+ArgListPrime								, Expression ArgListPrime																	ε				

@@ -16,6 +16,7 @@ def get_terminals(first, follow):
         for terminal in rule:
             if terminal != "ε" and terminals.count(terminal) == 0:
                 terminals.append(terminal)
+    terminals.append(":")
     return terminals
 
 
@@ -40,8 +41,9 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
     stack = list()
     stack.append("$")
     stack.append(non_terminals[0])
-    print(non_terminals)
-    print(stack, "\n\n\n")
+    # print(non_terminals)
+    # print(stack, "\n\n\n")
+    # return
 
     advance = True
 
@@ -56,13 +58,16 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
         # if token_type in ["ID", "NUM"]:
         #     token = token_type
         # print(look_ahead)
-        print(token_type, token, line)
-        if token_type == "EOF":
-            break
+        # print(token_type, token, line)
+        # if token_type == "EOF":
+        #     break
 
         if stack[-1] == "$":
             if token == "$":
                 print("ACCEPT")
+                break
+            else:
+                print("error")
                 break
         elif stack[-1] == token or stack[-1] == token_type:
             print("matched ", token)
@@ -74,7 +79,7 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                 production = parsing_table[non_terminals.index(stack[-1])][terminals.index(token_type)]
             else:
                 production = parsing_table[non_terminals.index(stack[-1])][terminals.index(token)]
-            print(stack[-1], " -> ", production)
+            # print(stack[-1], " -> ", production)
             if production == "":
                 print("error")
                 break
@@ -85,8 +90,11 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                 for t in p_list:
                     if t != "ε":
                         stack.append(t)
+        else:
+            print("error")
+            break
 
-        print(stack, "\n\n")
+        # print(stack, "\n\n")
         # print(advance_tokens(input_text))
         # print(advance_tokens(input_text))
 
@@ -98,14 +106,16 @@ def parse(input_text):
     grammar = read_grammar("./parse/grammar.txt")
     (first, follow) = read_first_follow("./parse/Firsts.csv", "./parse/Follows.csv")
 
-    for (key, value) in first.items():
-        print(key, " -> ", value)
+    # for (key, value) in first.items():
+    #     print(key, " -> ", value)
 
     terminals = get_terminals(first, follow)
     non_terminals = get_non_terminals(first, follow)
-    print(terminals)
+
+    # print(terminals)
     # print(non_terminals)
     # print(len(non_terminals))
+    # print(len(terminals))
     # print(terminals[3], terminals[20])
     parsing_table = generate_parsing_table2(non_terminals, terminals, first, follow, grammar)
     # print(*parsing_table, sep="\n")

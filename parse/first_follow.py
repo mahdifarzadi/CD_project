@@ -10,14 +10,15 @@ def read_first_follow(first_file_name, follow_file_name):
 
     for line in first_file:
         # print(line)
-        line = line.replace("\n", "").split(" ")
+        line = line.replace("\n", "").strip().split(" ")
+        # print(line)
         # print(line)
         first[line[0]] = list(line[1:])
         # print(first)
 
     for line in follow_file:
         # print(line)
-        line = line.replace("\n", "").split(" ")
+        line = line.replace("\n", "").strip().split(" ")
         # print(line)
         follow[line[0]] = list(line[1:])
         # print(first)

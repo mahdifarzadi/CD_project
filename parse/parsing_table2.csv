@@ -1,0 +1,53 @@
+ 	$	int	void	(	;	[	ID	,	{	break	if	while	return	switch	+	-	NUM	case	default	=	*	<	==	}	)	else	]	:
+Program	DeclarationList $	DeclarationList $	DeclarationList $																										
+DeclarationList	ε	Declaration DeclarationList	Declaration DeclarationList	ε	ε		ε		ε	ε	ε	ε	ε	ε	ε	ε	ε							ε					
+Declaration		DeclarationInitial DeclarationPrime	DeclarationInitial DeclarationPrime																										
+DeclarationInitial		TypeSpecifier ID	TypeSpecifier ID																										
+DeclarationPrime				FunDeclarationPrime	VarDeclarationPrime	VarDeclarationPrime																							
+VarDeclarationPrime					;	[ NUM ] ;																							
+FunDeclarationPrime				( Params ) CompoundStmt																									
+TypeSpecifier		int	void																										
+Params		int ID ParamPrime ParamList	void ParamListVoidAbtar																										
+ParamListVoidAbtar							ID ParamPrime ParamList																		ε				
+ParamList								, Param ParamList																	ε				
+Param		DeclarationInitial ParamPrime	DeclarationInitial ParamPrime																										
+ParamPrime						[ ]		ε																	ε				
+CompoundStmt									{ DeclarationList StatementList }																				
+StatementList				Statement StatementList	Statement StatementList		Statement StatementList		Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	ε	ε					ε					
+Statement				ExpressionStmt	ExpressionStmt		ExpressionStmt		CompoundStmt	ExpressionStmt	SelectionStmt	IterationStmt	ReturnStmt	SwitchStmt	ExpressionStmt	ExpressionStmt	ExpressionStmt												
+ExpressionStmt				Expression ;	;		Expression ;			break ;					Expression ;	Expression ;	Expression ;												
+SelectionStmt											if ( Expression ) Statement else Statement																		
+IterationStmt												while ( Expression ) Statement																	
+ReturnStmt													return ReturnStmtPrime																
+ReturnStmtPrime				Expression ;	;		Expression ;								Expression ;	Expression ;	Expression ;												
+SwitchStmt														switch ( Expression ) { CaseStmts DefaultStmt }															
+CaseStmts																		CaseStmt CaseStmts	ε					ε					
+CaseStmt																		case NUM : StatementList											
+DefaultStmt																			default : StatementList					ε					
+Expression				SimpleExpressionZegond			ID B								SimpleExpressionZegond	SimpleExpressionZegond	SimpleExpressionZegond												
+B				SimpleExpressionPrime	ε	[ Expression ] H		ε							SimpleExpressionPrime	SimpleExpressionPrime				= Expression	SimpleExpressionPrime	SimpleExpressionPrime	SimpleExpressionPrime		ε		ε		
+H					ε			ε							G D C	G D C				= Expression	G D C	G D C	G D C		ε		ε		
+SimpleExpressionZegond				AdditiveExpressionZegond C											AdditiveExpressionZegond C	AdditiveExpressionZegond C	AdditiveExpressionZegond C												
+SimpleExpressionPrime				AdditiveExpressionPrime C	ε			ε							AdditiveExpressionPrime C	AdditiveExpressionPrime C					AdditiveExpressionPrime C	AdditiveExpressionPrime C	AdditiveExpressionPrime C		ε		ε		
+C					ε			ε														Relop AdditiveExpression	Relop AdditiveExpression		ε		ε		
+Relop																						<	==						
+AdditiveExpression				Term D			Term D								Term D	Term D	Term D												
+AdditiveExpressionPrime				TermPrime D	ε			ε							TermPrime D	TermPrime D					TermPrime D	ε	ε		ε		ε		
+AdditiveExpressionZegond				TermZegond D											TermZegond D	TermZegond D	TermZegond D												
+D					ε			ε							Addop Term D	Addop Term D						ε	ε		ε		ε		
+Addop															+	-													
+Term				SignedFactor G			SignedFactor G								SignedFactor G	SignedFactor G	SignedFactor G												
+TermPrime				SignedFactorPrime G	ε			ε							ε	ε					SignedFactorPrime G	ε	ε		ε		ε		
+TermZegond				SignedFactorZegond G											SignedFactorZegond G	SignedFactorZegond G	SignedFactorZegond G												
+G					ε			ε							ε	ε					* SignedFactor G	ε	ε		ε		ε		
+SignedFactor				Factor			Factor								+ Factor	- Factor	Factor												
+SignedFactorPrime				FactorPrime	ε			ε							ε	ε					ε	ε	ε		ε		ε		
+SignedFactorZegond				FactorZegond											+ Factor	- Factor	FactorZegond												
+Factor				( Expression )			ID VarCallPrime										NUM												
+VarCallPrime				( Args )	ε	VarPrime		ε							ε	ε					ε	ε	ε		ε		ε		
+VarPrime					ε	[ Expression ]		ε							ε	ε					ε	ε	ε		ε		ε		
+FactorPrime				( Args )	ε			ε							ε	ε					ε	ε	ε		ε		ε		
+FactorZegond				( Expression )													NUM												
+Args				ArgList			ArgList								ArgList	ArgList	ArgList								ε				
+ArgList				Expression ArgListPrime			Expression ArgListPrime								Expression ArgListPrime	Expression ArgListPrime	Expression ArgListPrime												
+ArgListPrime								, Expression ArgListPrime																	ε				

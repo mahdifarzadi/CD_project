@@ -1,9 +1,12 @@
+import io
+
+
 def generate_parsing_table(non_terminals, terminals, first, follow, grammar):
     # print(first)
     # print(follow
     # parsing_table = [[] for j in range]
     # init_parsing_table(first, follow)
-    parsing_table = [[""]*len(terminals) for i in range(len(non_terminals))]
+    parsing_table = [[""] * len(terminals) for i in range(len(non_terminals))]
 
     for (i, non_terminal) in enumerate(non_terminals):
         for (j, terminal) in enumerate(terminals):
@@ -12,7 +15,9 @@ def generate_parsing_table(non_terminals, terminals, first, follow, grammar):
             # print(grammar_first[non_terminal])
             if terminal in first[non_terminal]:
                 for p in grammar[non_terminal]:
-                    if p.find(terminal) == 0 or (p[0].isupper() and p.split(" ")[0] != "ID" and p.split(" ")[0] != "NUM" and terminal in first[p.split(" ")[0]]):
+                    if p.find(terminal) == 0 or (
+                            p[0].isupper() and p.split(" ")[0] != "ID" and p.split(" ")[0] != "NUM" and terminal in
+                            first[p.split(" ")[0]]):
                         production = p
                         break
             elif "ε" in first[non_terminal] and terminal in follow[non_terminal]:
@@ -34,21 +39,35 @@ def generate_parsing_table2(non_terminals, terminals, first, follow, grammar):
     parsing_table = [[""] * len(terminals) for i in range(len(non_terminals))]
     for (non_terminal, productions) in grammar.items():
         for p in productions:
-            s = p.split(" ")[0]
-            if s in non_terminals:
-                for t in first[s]:
-                    if t != "ε":
-                        parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] = p
-                if "ε" in first[s]:
+            rules = p.split(" ")
+            for rule in rules:
+                if rule in non_terminals:
+                    for t in first[rule]:
+                        if t != "ε":
+                            # if parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] == "":
+                                parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] = p
+                    if "ε" in first[rule]:
+                        for t in follow[non_terminal]:
+                            if parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] == "":
+                                parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] = "ε"
+                elif rule != "ε":
+                    if parsing_table[non_terminals.index(non_terminal)][terminals.index(rule)] == "":
+                        parsing_table[non_terminals.index(non_terminal)][terminals.index(rule)] = p
+                else:
                     for t in follow[non_terminal]:
-                        parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] = "ε"
-            elif s != "ε":
-                parsing_table[non_terminals.index(non_terminal)][terminals.index(s)] = p
-            else:
-                for t in follow[non_terminal]:
-                    parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] = p
+                        if parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] == "":
+                            parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] = p
+                if rule in terminals or (rule in non_terminals and "ε" not in first[rule]):
+                    break
     write_to_file2(parsing_table, terminals, non_terminals)
     return parsing_table
+
+
+# def generate_parsing_table3(non_terminals, terminals, first, follow, grammar):
+#     parsing_table = [[""] * len(terminals) for i in range(len(non_terminals))]
+#     for (non_terminal, productions) in grammar.items():
+#         for p in productions:
+
 
 
 def write_to_file(parsing_table, terminals, non_terminals):
@@ -61,7 +80,7 @@ def write_to_file(parsing_table, terminals, non_terminals):
         for col in row:
             text += col + tab
         text += "\n"
-    file = open("./parse/parsing_table.csv", "w")
+    file = io.open("./parse/parsing_table.csv", mode="w", encoding="utf-8")
     file.write(text)
 
 
@@ -75,5 +94,5 @@ def write_to_file2(parsing_table, terminals, non_terminals):
         for col in row:
             text += col + tab
         text += "\n"
-    file = open("./parse/parsing_table2.csv", "w")
+    file = io.open("./parse/parsing_table2.csv", mode="w", encoding="utf-8")
     file.write(text)
