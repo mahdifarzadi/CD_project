@@ -1,4 +1,4 @@
-from compiler import write_file
+# from compiler import write_file
 from scanner.tokens import *
 
 
@@ -7,6 +7,10 @@ def get_next_token(text):
     first_index = Position.index
     line = Position.line
     state = 0
+
+    if Position.index >= len(text):
+        return ("EOF", "$"), line
+
     while True:
         if type(tokens_dfa[state]) is dict and Position.index < len(text):
             for s in tokens_dfa[state].keys():
@@ -72,49 +76,49 @@ def find_tokens(text):
             tokens[line].append(token)
         else:
             tokens[line] = [token]
-    write_tokens(tokens)
-    write_errors(errors)
-    write_symbols(symbol_table)
+    # write_tokens(tokens)
+    # write_errors(errors)
+    # write_symbols(symbol_table)
 
 
-def write_tokens(tokens):
-    string = ""
-    for i, row in zip(tokens.keys(), tokens.values()):
-        string += str(i)
-        string += ".\t"
-        for t in row:
-            string += "("
-            string += t[0]
-            string += ", "
-            string += t[1]
-            string += ") "
-        string += "\n"
-    write_file("tokens.txt", string)
+# def write_tokens(tokens):
+#     string = ""
+#     for i, row in zip(tokens.keys(), tokens.values()):
+#         string += str(i)
+#         string += ".\t"
+#         for t in row:
+#             string += "("
+#             string += t[0]
+#             string += ", "
+#             string += t[1]
+#             string += ") "
+#         string += "\n"
+#     write_file("tokens.txt", string)
 
 
-def write_errors(errors):
-    string = ""
-    if len(errors) > 0:
-        for i, row in zip(errors.keys(), errors.values()):
-            string += str(i)
-            string += ".\t"
-            for t in row:
-                string += "("
-                string += t[1]
-                string += ", "
-                string += t[0]
-                string += ") "
-            string += "\n"
-    else:
-        string = "There is no lexical error."
-    write_file("lexical_errors.txt", string)
+# def write_errors(errors):
+#     string = ""
+#     if len(errors) > 0:
+#         for i, row in zip(errors.keys(), errors.values()):
+#             string += str(i)
+#             string += ".\t"
+#             for t in row:
+#                 string += "("
+#                 string += t[1]
+#                 string += ", "
+#                 string += t[0]
+#                 string += ") "
+#             string += "\n"
+#     else:
+#         string = "There is no lexical error."
+#     write_file("lexical_errors.txt", string)
 
 
-def write_symbols(symbol_table):
-    string = ""
-    for i, symbol in zip(range(len(symbol_table)), symbol_table):
-        string += str(i + 1)
-        string += ".\t"
-        string += symbol
-        string += "\n"
-    write_file("symbol_table.txt", string)
+# def write_symbols(symbol_table):
+#     string = ""
+#     for i, symbol in zip(range(len(symbol_table)), symbol_table):
+#         string += str(i + 1)
+#         string += ".\t"
+#         string += symbol
+#         string += "\n"
+#     write_file("symbol_table.txt", string)
