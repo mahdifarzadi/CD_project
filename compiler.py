@@ -1,4 +1,5 @@
-from scanner.scanner import *
+from scanner.scanner import find_tokens
+
 
 # mahdi farzadi  97106176
 # ali eslami najad 97105747
