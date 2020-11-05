@@ -84,10 +84,25 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                 print("error")
                 break
         elif stack[-1] == token or stack[-1] == token_type:
-            add_node(current_node, "( "+token_type+", "+token+")")
+            # add_node(current_node, "( "+token_type+", "+token+")")
+            current_node.name = "( "+token_type+", "+token+")"
             print("matched ", token)
             advance = True
             stack.pop()
+
+            flag = True
+            while flag:
+                for child in current_node.parent.children:
+                    print(child)
+                    if child.name == stack[-1]:
+                        current_node = child
+                        flag = False
+                        break
+                else:
+                    if current_node.depth == 0:
+                        flag = False
+                    else:
+                        current_node = current_node.parent
         elif stack[-1] in non_terminals:
             advance = False
             if token_type in ["ID", "NUM"]:
@@ -103,7 +118,7 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                 p_list = production.split(" ")
                 next_node = None
                 for t in p_list:
-                    if t in non_terminals:
+                    # if t in non_terminals:
                         if next_node is None:
                             next_node = add_node(current_node, t)
                         else:
@@ -126,6 +141,8 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
         print(stack, "\n\n")
         # print(advance_tokens(input_text))
         # print(advance_tokens(input_text))
+        print_tree(root)
+        print(current_node)
 
     print_tree(root)
 
