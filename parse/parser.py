@@ -84,20 +84,23 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                 print("error")
                 break
         elif stack[-1] == token or stack[-1] == token_type:
-            # add_node(current_node, "( "+token_type+", "+token+")")
-            current_node.name = "( "+token_type+", "+token+")"
+            # add_node(current_node, "("+token_type+", "+token+")")
+            current_node.name = "("+token_type+", "+token+")"
             print("matched ", token)
             advance = True
             stack.pop()
 
             flag = True
             while flag:
+                flag2 = False
                 for child in current_node.parent.children:
                     print(child)
-                    if child.name == stack[-1]:
+                    if flag2 and child.name == stack[-1]:
                         current_node = child
                         flag = False
                         break
+                    if child.name == current_node.name:
+                        flag2 = True
                 else:
                     if current_node.depth == 0:
                         flag = False
@@ -120,12 +123,15 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                     print("ε cn: ", current_node)
                     flag = True
                     while flag:
+                        flag2 = False
                         for child in current_node.parent.children:
                             print(child)
-                            if child.name == stack[-1]:
+                            if flag2 and child.name == stack[-1]:
                                 current_node = child
                                 flag = False
                                 break
+                            if child.name == current_node.name:
+                                flag2 = True
                         else:
                             if current_node.depth == 0:
                                 flag = False

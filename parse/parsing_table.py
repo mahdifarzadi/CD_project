@@ -48,14 +48,14 @@ def generate_parsing_table2(non_terminals, terminals, first, follow, grammar):
                                 parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] = p
                     if "ε" in first[rule]:
                         for t in follow[non_terminal]:
-                            if parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] == "":
+                            # if parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] == "":
                                 parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] = "ε"
                 elif rule != "ε":
-                    if parsing_table[non_terminals.index(non_terminal)][terminals.index(rule)] == "":
+                    # if parsing_table[non_terminals.index(non_terminal)][terminals.index(rule)] == "":
                         parsing_table[non_terminals.index(non_terminal)][terminals.index(rule)] = p
                 else:
                     for t in follow[non_terminal]:
-                        if parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] == "":
+                        # if parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] == "":
                             parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] = p
                 if rule in terminals or (rule in non_terminals and "ε" not in first[rule]):
                     break
