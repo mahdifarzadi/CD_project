@@ -1,4 +1,5 @@
 import io
+from anytree import Node, RenderTree, PostOrderIter, PreOrderIter, LevelOrderGroupIter
 
 from parse.first_follow import read_first_follow
 from parse.grammar import read_grammar
@@ -35,12 +36,23 @@ def advance_tokens(input_text):
     return look_ahead
 
 
+def add_node(root, name):
+    return Node(name=name, parent=root)
+
+
+def print_tree(root):
+    for pre, fill, node in RenderTree(root):
+        print("%s%s" % (pre, node.name))
+
+
 def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, non_terminals):
 
     # initial stack
     stack = list()
     stack.append("$")
     stack.append(non_terminals[0])
+    root = Node(non_terminals[0])
+    current_node = root
     # print(non_terminals)
     # print(stack, "\n\n\n")
     # return
@@ -62,6 +74,8 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
         # if token_type == "EOF":
         #     break
 
+        # current_node = stack[-1]
+
         if stack[-1] == "$":
             if token == "$":
                 print("ACCEPT")
@@ -70,6 +84,7 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                 print("error")
                 break
         elif stack[-1] == token or stack[-1] == token_type:
+            add_node(current_node, "( "+token_type+", "+token+")")
             print("matched ", token)
             advance = True
             stack.pop()
@@ -79,24 +94,40 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                 production = parsing_table[non_terminals.index(stack[-1])][terminals.index(token_type)]
             else:
                 production = parsing_table[non_terminals.index(stack[-1])][terminals.index(token)]
-            # print(stack[-1], " -> ", production)
+            print(stack[-1], " -> ", production)
             if production == "":
                 print("error")
                 break
             else:
                 stack.pop()
                 p_list = production.split(" ")
+                next_node = None
+                for t in p_list:
+                    if t in non_terminals:
+                        if next_node is None:
+                            next_node = add_node(current_node, t)
+                        else:
+                            add_node(current_node, t)
+                if next_node is not None:
+                    current_node = current_node.children[0]
+
                 p_list.reverse()
                 for t in p_list:
                     if t != "ε":
+                        # add_node(current_node, t)
                         stack.append(t)
+                    # else:
+                    #     add_node(current_node, "epsilon")
+
         else:
             print("error")
             break
 
-        # print(stack, "\n\n")
+        print(stack, "\n\n")
         # print(advance_tokens(input_text))
         # print(advance_tokens(input_text))
+
+    print_tree(root)
 
 
 def parse(input_text):
@@ -121,6 +152,7 @@ def parse(input_text):
     # print(*parsing_table, sep="\n")
 
     start_parsing(input_text, grammar, parsing_table, first, follow, terminals, non_terminals)
+
 
 
 if __name__ == '__main__':
