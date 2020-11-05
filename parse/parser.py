@@ -115,10 +115,26 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                 break
             else:
                 stack.pop()
+                if production == "ε":
+                    add_node(current_node, "epsilon")
+                    print("ε cn: ", current_node)
+                    flag = True
+                    while flag:
+                        for child in current_node.parent.children:
+                            print(child)
+                            if child.name == stack[-1]:
+                                current_node = child
+                                flag = False
+                                break
+                        else:
+                            if current_node.depth == 0:
+                                flag = False
+                            else:
+                                current_node = current_node.parent
                 p_list = production.split(" ")
                 next_node = None
                 for t in p_list:
-                    # if t in non_terminals:
+                    if t != "ε":
                         if next_node is None:
                             next_node = add_node(current_node, t)
                         else:
@@ -138,11 +154,12 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
             print("error")
             break
 
-        print(stack, "\n\n")
+        print(stack)
         # print(advance_tokens(input_text))
         # print(advance_tokens(input_text))
         print_tree(root)
         print(current_node)
+        print("\n\n")
 
     print_tree(root)
 
