@@ -54,19 +54,22 @@ def write_tree(root):
 
 def write_syntax_errors(errors):
     string = ""
-    for error in errors:
-        string += "#"+str(error[0])+" : syntax error, "
-        if error[1]==1:
-            string += "Missing "
-        elif error[1]==2:
-            string += "illegal "
-        elif error[1]==3:
-            string += "Missing "
-        elif error[1]==4:
-            string += "unexpected "
+    if len(errors) == 0:
+        string = "There is no syntax error."
+    else:
+        for error in errors:
+            string += "#"+str(error[0])+" : syntax error, "
+            if error[1]==1:
+                string += "Missing "
+            elif error[1]==2:
+                string += "illegal "
+            elif error[1]==3:
+                string += "Missing "
+            elif error[1]==4:
+                string += "unexpected "
 
-        string += error[2]
-        string += "\n"
+            string += error[2]
+            string += "\n"
 
     file = io.open("./syntax_errors.txt", mode="w", encoding="utf-8")
     file.write(string)
