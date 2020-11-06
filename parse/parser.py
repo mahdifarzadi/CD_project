@@ -52,11 +52,24 @@ def write_tree(root):
     file = io.open("./parse_tree.txt", mode="w", encoding="utf-8")
     file.write(string)
 
-def write_syntax_errors(line,type,error):
+def write_syntax_errors(errors):
     string = ""
-    string += "#"+str(line)+" : Syntax Error, "+type+" "+error+"\n"
-    print(string)
+    for error in errors:
+        string += "#"+str(error[0])+" : syntax error, "
+        if error[1]==1:
+            string += "Missing "
+        elif error[1]==2:
+            string += "illegal "
+        elif error[1]==3:
+            string += "Missing "
+        elif error[1]==4:
+            string += "unexpected "
 
+        string += error[2]
+        string += "\n"
+
+    file = io.open("./syntax_errors.txt", mode="w", encoding="utf-8")
+    file.write(string)
 
 
 def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, non_terminals):
@@ -86,7 +99,8 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
         #     token = token_type
         print(look_ahead,stack[-1])
         # print(token_type, token, line)
-        if token_type == "EOF":
+        if token_type == "EOF" and stack[-1] != "$":
+            #errors.append([line+1, 4, "EOF"])
             break
 
         # current_node = stack[-1]
@@ -110,7 +124,7 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
             while flag:
                 flag2 = False
                 for child in current_node.parent.children:
-                    #print(child)
+                    print(child)
                     if flag2 and child.name == stack[-1]:
                         current_node = child
                         flag = False
@@ -123,10 +137,11 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                     else:
                         current_node = current_node.parent
 
-        #panic-mode 3
+        #panic-mode 1
         elif stack[-1] in terminals:
             if stack[-1] != token and stack[-1] != token_type:
                 print("panic mode 3")
+                errors.append([line, 1, stack[-1]])
                 stack.pop()
                 continue
 
@@ -140,14 +155,16 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                 production = parsing_table[non_terminals.index(stack[-1])][terminals.index(token)]
                 a = token
             print(stack[-1],", ",a, " -> ", production)
-            #panic-mode 1
+            #panic-mode 2
             if production == "":
                 print("error 2")
+                errors.append([line, 2, a])
                 advance = True
                 continue
-            #panic-mode 2
+            #panic-mode 3
             elif production == "synch":
                 print("synch")
+                errors.append([line,3,stack[-1]])
                 stack.pop()
                 continue
 
@@ -204,6 +221,8 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
 
     print_tree(root)
     write_tree(root)
+    print(errors)
+    write_syntax_errors(errors)
 
 
 def parse(input_text):
