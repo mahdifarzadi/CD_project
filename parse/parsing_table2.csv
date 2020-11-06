@@ -1,53 +1,53 @@
  	$	int	void	(	;	[	ID	,	{	break	if	while	return	switch	+	-	NUM	case	default	=	*	<	==	}	)	else	]	:
 Program	DeclarationList $	DeclarationList $	DeclarationList $																										
 DeclarationList	ε	Declaration DeclarationList	Declaration DeclarationList	ε	ε		ε		ε	ε	ε	ε	ε	ε	ε	ε	ε							ε					
-Declaration		DeclarationInitial DeclarationPrime	DeclarationInitial DeclarationPrime																										
-DeclarationInitial		TypeSpecifier ID	TypeSpecifier ID																										
-DeclarationPrime				FunDeclarationPrime	VarDeclarationPrime	VarDeclarationPrime																							
-VarDeclarationPrime					;	[ NUM ] ;																							
-FunDeclarationPrime				( Params ) CompoundStmt																									
-TypeSpecifier		int	void																										
-Params		int ID ParamPrime ParamList	void ParamListVoidAbtar																										
+Declaration	synch	DeclarationInitial DeclarationPrime	DeclarationInitial DeclarationPrime	synch	synch		synch		synch	synch	synch	synch	synch	synch	synch	synch	synch							synch					
+DeclarationInitial		TypeSpecifier ID	TypeSpecifier ID	synch	synch	synch		synch																	synch				
+DeclarationPrime	synch	synch	synch	FunDeclarationPrime	VarDeclarationPrime	VarDeclarationPrime	synch		synch	synch	synch	synch	synch	synch	synch	synch	synch							synch					
+VarDeclarationPrime	synch	synch	synch	synch	;	[ NUM ] ;	synch		synch	synch	synch	synch	synch	synch	synch	synch	synch							synch					
+FunDeclarationPrime	synch	synch	synch	( Params ) CompoundStmt	synch		synch		synch	synch	synch	synch	synch	synch	synch	synch	synch							synch					
+TypeSpecifier		int	void				synch																						
+Params		int ID ParamPrime ParamList	void ParamListVoidAbtar																						synch				
 ParamListVoidAbtar							ID ParamPrime ParamList																		ε				
 ParamList								, Param ParamList																	ε				
-Param		DeclarationInitial ParamPrime	DeclarationInitial ParamPrime																										
+Param		DeclarationInitial ParamPrime	DeclarationInitial ParamPrime					synch																	synch				
 ParamPrime						[ ]		ε																	ε				
-CompoundStmt									{ DeclarationList StatementList }																				
+CompoundStmt	synch	synch	synch	synch	synch		synch		{ DeclarationList StatementList }	synch	synch	synch	synch	synch	synch	synch	synch	synch	synch					synch		synch			
 StatementList				Statement StatementList	Statement StatementList		Statement StatementList		Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	Statement StatementList	ε	ε					ε					
-Statement				ExpressionStmt	ExpressionStmt		ExpressionStmt		CompoundStmt	ExpressionStmt	SelectionStmt	IterationStmt	ReturnStmt	SwitchStmt	ExpressionStmt	ExpressionStmt	ExpressionStmt												
-ExpressionStmt				Expression ;	;		Expression ;			break ;					Expression ;	Expression ;	Expression ;												
-SelectionStmt											if ( Expression ) Statement else Statement																		
-IterationStmt												while ( Expression ) Statement																	
-ReturnStmt													return ReturnStmtPrime																
-ReturnStmtPrime				Expression ;	;		Expression ;								Expression ;	Expression ;	Expression ;												
-SwitchStmt														switch ( Expression ) { CaseStmts DefaultStmt }															
+Statement				ExpressionStmt	ExpressionStmt		ExpressionStmt		CompoundStmt	ExpressionStmt	SelectionStmt	IterationStmt	ReturnStmt	SwitchStmt	ExpressionStmt	ExpressionStmt	ExpressionStmt	synch	synch					synch		synch			
+ExpressionStmt				Expression ;	;		Expression ;		synch	break ;	synch	synch	synch	synch	Expression ;	Expression ;	Expression ;	synch	synch					synch		synch			
+SelectionStmt				synch	synch		synch		synch	synch	if ( Expression ) Statement else Statement	synch	synch	synch	synch	synch	synch	synch	synch					synch		synch			
+IterationStmt				synch	synch		synch		synch	synch	synch	while ( Expression ) Statement	synch	synch	synch	synch	synch	synch	synch					synch		synch			
+ReturnStmt				synch	synch		synch		synch	synch	synch	synch	return ReturnStmtPrime	synch	synch	synch	synch	synch	synch					synch		synch			
+ReturnStmtPrime				Expression ;	;		Expression ;		synch	synch	synch	synch	synch	synch	Expression ;	Expression ;	Expression ;	synch	synch					synch		synch			
+SwitchStmt				synch	synch		synch		synch	synch	synch	synch	synch	switch ( Expression ) { CaseStmts DefaultStmt }	synch	synch	synch	synch	synch					synch		synch			
 CaseStmts																		CaseStmt CaseStmts	ε					ε					
-CaseStmt																		case NUM : StatementList											
+CaseStmt																		case NUM : StatementList	synch					synch					
 DefaultStmt																			default : StatementList					ε					
-Expression				SimpleExpressionZegond			ID B								SimpleExpressionZegond	SimpleExpressionZegond	SimpleExpressionZegond												
+Expression				SimpleExpressionZegond	synch		ID B	synch							SimpleExpressionZegond	SimpleExpressionZegond	SimpleExpressionZegond								synch		synch		
 B				SimpleExpressionPrime	SimpleExpressionPrime	[ Expression ] H		SimpleExpressionPrime							SimpleExpressionPrime	SimpleExpressionPrime				= Expression	SimpleExpressionPrime	SimpleExpressionPrime	SimpleExpressionPrime		SimpleExpressionPrime		SimpleExpressionPrime		
 H					G D C			G D C							G D C	G D C				= Expression	G D C	G D C	G D C		G D C		G D C		
-SimpleExpressionZegond				AdditiveExpressionZegond C											AdditiveExpressionZegond C	AdditiveExpressionZegond C	AdditiveExpressionZegond C												
+SimpleExpressionZegond				AdditiveExpressionZegond C	synch			synch							AdditiveExpressionZegond C	AdditiveExpressionZegond C	AdditiveExpressionZegond C								synch		synch		
 SimpleExpressionPrime				AdditiveExpressionPrime C	AdditiveExpressionPrime C			AdditiveExpressionPrime C							AdditiveExpressionPrime C	AdditiveExpressionPrime C					AdditiveExpressionPrime C	AdditiveExpressionPrime C	AdditiveExpressionPrime C		AdditiveExpressionPrime C		AdditiveExpressionPrime C		
 C					ε			ε														Relop AdditiveExpression	Relop AdditiveExpression		ε		ε		
-Relop																						<	==						
-AdditiveExpression				Term D			Term D								Term D	Term D	Term D												
+Relop				synch			synch								synch	synch	synch					<	==						
+AdditiveExpression				Term D	synch		Term D	synch							Term D	Term D	Term D								synch		synch		
 AdditiveExpressionPrime				TermPrime D	TermPrime D			TermPrime D							TermPrime D	TermPrime D					TermPrime D	TermPrime D	TermPrime D		TermPrime D		TermPrime D		
-AdditiveExpressionZegond				TermZegond D											TermZegond D	TermZegond D	TermZegond D												
+AdditiveExpressionZegond				TermZegond D	synch			synch							TermZegond D	TermZegond D	TermZegond D					synch	synch		synch		synch		
 D					ε			ε							Addop Term D	Addop Term D						ε	ε		ε		ε		
-Addop															+	-													
-Term				SignedFactor G			SignedFactor G								SignedFactor G	SignedFactor G	SignedFactor G												
+Addop				synch			synch								+	-	synch												
+Term				SignedFactor G	synch		SignedFactor G	synch							SignedFactor G	SignedFactor G	SignedFactor G					synch	synch		synch		synch		
 TermPrime				SignedFactorPrime G	SignedFactorPrime G			SignedFactorPrime G							SignedFactorPrime G	SignedFactorPrime G					SignedFactorPrime G	SignedFactorPrime G	SignedFactorPrime G		SignedFactorPrime G		SignedFactorPrime G		
-TermZegond				SignedFactorZegond G											SignedFactorZegond G	SignedFactorZegond G	SignedFactorZegond G												
+TermZegond				SignedFactorZegond G	synch			synch							SignedFactorZegond G	SignedFactorZegond G	SignedFactorZegond G					synch	synch		synch		synch		
 G					ε			ε							ε	ε					* SignedFactor G	ε	ε		ε		ε		
-SignedFactor				Factor			Factor								+ Factor	- Factor	Factor												
+SignedFactor				Factor	synch		Factor	synch							+ Factor	- Factor	Factor				synch	synch	synch		synch		synch		
 SignedFactorPrime				FactorPrime	FactorPrime			FactorPrime							FactorPrime	FactorPrime					FactorPrime	FactorPrime	FactorPrime		FactorPrime		FactorPrime		
-SignedFactorZegond				FactorZegond											+ Factor	- Factor	FactorZegond												
-Factor				( Expression )			ID VarCallPrime										NUM												
+SignedFactorZegond				FactorZegond	synch			synch							+ Factor	- Factor	FactorZegond				synch	synch	synch		synch		synch		
+Factor				( Expression )	synch		ID VarCallPrime	synch							synch	synch	NUM				synch	synch	synch		synch		synch		
 VarCallPrime				( Args )	VarPrime	VarPrime		VarPrime							VarPrime	VarPrime					VarPrime	VarPrime	VarPrime		VarPrime		VarPrime		
 VarPrime					ε	[ Expression ]		ε							ε	ε					ε	ε	ε		ε		ε		
 FactorPrime				( Args )	ε			ε							ε	ε					ε	ε	ε		ε		ε		
-FactorZegond				( Expression )													NUM												
+FactorZegond				( Expression )	synch			synch							synch	synch	NUM				synch	synch	synch		synch		synch		
 Args				ArgList			ArgList								ArgList	ArgList	ArgList								ε				
-ArgList				Expression ArgListPrime			Expression ArgListPrime								Expression ArgListPrime	Expression ArgListPrime	Expression ArgListPrime												
+ArgList				Expression ArgListPrime			Expression ArgListPrime								Expression ArgListPrime	Expression ArgListPrime	Expression ArgListPrime								synch				
 ArgListPrime								, Expression ArgListPrime																	ε				

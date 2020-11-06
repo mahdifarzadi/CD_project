@@ -60,6 +60,11 @@ def generate_parsing_table2(non_terminals, terminals, first, follow, grammar):
                             parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] = p
                 if rule in terminals or (rule in non_terminals and "ε" not in first[rule]):
                     break
+    for A in non_terminals:
+        for a in terminals:
+            if parsing_table[non_terminals.index(A)][terminals.index(a)] == "":
+                if a in follow[A]:
+                    parsing_table[non_terminals.index(A)][terminals.index(a)] = "synch"
     write_to_file2(parsing_table, terminals, non_terminals)
     return parsing_table
 
