@@ -75,6 +75,15 @@ def write_syntax_errors(errors):
     file.write(string)
 
 
+def clean_tree(node, terminals, non_terminals, remove_eof):
+    for l in node.leaves:
+        if l.name == "$":
+            if remove_eof:
+                l.parent = None
+        elif l.name in terminals or l.name in non_terminals:
+            l.parent = None
+
+
 def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, non_terminals):
 
     # initial stack
@@ -102,9 +111,9 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
         #     token = token_type
         print(look_ahead,stack[-1])
         # print(token_type, token, line)
-        if token_type == "EOF" and stack[-1] != "$":
-            #errors.append([line+1, 4, "EOF"])
-            break
+        # if token_type == "EOF" and stack[-1] != "$":
+        #     #errors.append([line+1, 4, "EOF"])
+        #     break
 
         # current_node = stack[-1]
 
@@ -142,10 +151,32 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
 
         #panic-mode 1
         elif stack[-1] in terminals:
-            if stack[-1] != token and stack[-1] != token_type:
+            advance = False
+            if token == "$":
+                print("errrrr")
+                errors.append([line, 4, token_type])
+                clean_tree(root, terminals, non_terminals, True)
+                break
+            elif stack[-1] != token and stack[-1] != token_type:
                 print("panic mode 3")
                 errors.append([line, 1, stack[-1]])
                 stack.pop()
+                flag = True
+                while flag:
+                    flag2 = False
+                    for child in current_node.parent.children:
+                        # print(child)
+                        if flag2 and child.name == stack[-1]:
+                            current_node = child
+                            flag = False
+                            break
+                        if child.name == current_node.name:
+                            flag2 = True
+                    else:
+                        if current_node.depth == 0:
+                            flag = False
+                        else:
+                            current_node = current_node.parent
                 continue
 
 
@@ -160,6 +191,11 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
             print(stack[-1],", ",a, " -> ", production)
             #panic-mode 2
             if production == "":
+                if token == "$":
+                    print("errrrr")
+                    errors.append([line, 4, token_type])
+                    clean_tree(root, terminals, non_terminals, True)
+                    break
                 print("error 2")
                 errors.append([line, 2, a])
                 advance = True
@@ -169,6 +205,23 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                 print("synch")
                 errors.append([line,3,stack[-1]])
                 stack.pop()
+                # print("ε cn: ", current_node)
+                flag = True
+                while flag:
+                    flag2 = False
+                    for child in current_node.parent.children:
+                        # print(child)
+                        if flag2 and child.name == stack[-1]:
+                            current_node = child
+                            flag = False
+                            break
+                        if child.name == current_node.name:
+                            flag2 = True
+                    else:
+                        if current_node.depth == 0:
+                            flag = False
+                        else:
+                            current_node = current_node.parent
                 continue
 
             else:
@@ -208,6 +261,7 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
                     if t != "ε":
                         # add_node(current_node, t)
                         stack.append(t)
+
                     # else:
                     #     add_node(current_node, "epsilon")
 
@@ -221,6 +275,8 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
         #print_tree(root)
         #print(current_node)
         #print("\n\n")
+
+    clean_tree(root, terminals, non_terminals, False)
 
     print_tree(root)
     write_tree(root)
@@ -250,7 +306,6 @@ def parse(input_text):
     # print(*parsing_table, sep="\n")
 
     start_parsing(input_text, grammar, parsing_table, first, follow, terminals, non_terminals)
-
 
 
 if __name__ == '__main__':
