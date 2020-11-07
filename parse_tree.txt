@@ -1,53 +1,53 @@
 Program
-├── DeclarationList
+├── Declaration-list
 │   ├── Declaration
-│   │   ├── DeclarationInitial
-│   │   │   ├── TypeSpecifier
+│   │   ├── Declaration-initial
+│   │   │   ├── Type-specifier
 │   │   │   │   └── (KEYWORD, void)
 │   │   │   └── (ID, main)
-│   │   └── DeclarationPrime
-│   │       └── FunDeclarationPrime
+│   │   └── Declaration-prime
+│   │       └── Fun-declaration-prime
 │   │           ├── (SYMBOL, ()
 │   │           ├── (SYMBOL, ))
-│   │           └── CompoundStmt
+│   │           └── Compound-stmt
 │   │               ├── (SYMBOL, {)
-│   │               ├── DeclarationList
+│   │               ├── Declaration-list
 │   │               │   ├── Declaration
-│   │               │   │   ├── DeclarationInitial
-│   │               │   │   │   ├── TypeSpecifier
+│   │               │   │   ├── Declaration-initial
+│   │               │   │   │   ├── Type-specifier
 │   │               │   │   │   │   └── (KEYWORD, int)
 │   │               │   │   │   └── (ID, a)
-│   │               │   │   └── DeclarationPrime
-│   │               │   │       └── VarDeclarationPrime
+│   │               │   │   └── Declaration-prime
+│   │               │   │       └── Var-declaration-prime
 │   │               │   │           └── (SYMBOL, ;)
-│   │               │   └── DeclarationList
+│   │               │   └── Declaration-list
 │   │               │       ├── Declaration
-│   │               │       │   ├── DeclarationInitial
-│   │               │       │   │   ├── TypeSpecifier
+│   │               │       │   ├── Declaration-initial
+│   │               │       │   │   ├── Type-specifier
 │   │               │       │   │   │   └── (KEYWORD, int)
 │   │               │       │   │   └── (ID, b)
-│   │               │       │   └── DeclarationPrime
-│   │               │       │       └── VarDeclarationPrime
+│   │               │       │   └── Declaration-prime
+│   │               │       │       └── Var-declaration-prime
 │   │               │       │           └── (SYMBOL, ;)
-│   │               │       └── DeclarationList
+│   │               │       └── Declaration-list
 │   │               │           └── epsilon
-│   │               ├── StatementList
+│   │               ├── Statement-list
 │   │               │   ├── Statement
-│   │               │   │   └── ExpressionStmt
+│   │               │   │   └── Expression-stmt
 │   │               │   │       ├── Expression
 │   │               │   │       │   ├── (ID, a)
 │   │               │   │       │   └── B
 │   │               │   │       │       ├── (SYMBOL, =)
 │   │               │   │       │       └── Expression
-│   │               │   │       │           └── SimpleExpressionZegond
-│   │               │   │       │               ├── AdditiveExpressionZegond
-│   │               │   │       │               │   ├── TermZegond
-│   │               │   │       │               │   │   ├── SignedFactorZegond
+│   │               │   │       │           └── Simple-expression-zegond
+│   │               │   │       │               ├── Additive-expression-zegond
+│   │               │   │       │               │   ├── Term-zegond
+│   │               │   │       │               │   │   ├── Signed-factor-zegond
 │   │               │   │       │               │   │   │   ├── (SYMBOL, -)
 │   │               │   │       │               │   │   │   └── Factor
 │   │               │   │       │               │   │   │       ├── (ID, b)
-│   │               │   │       │               │   │   │       └── VarCallPrime
-│   │               │   │       │               │   │   │           └── VarPrime
+│   │               │   │       │               │   │   │       └── Var-call-prime
+│   │               │   │       │               │   │   │           └── Var-prime
 │   │               │   │       │               │   │   │               └── epsilon
 │   │               │   │       │               │   │   └── G
 │   │               │   │       │               │   │       └── epsilon
@@ -55,7 +55,7 @@ Program
 │   │               │   │       │               │       ├── Addop
 │   │               │   │       │               │       │   └── (SYMBOL, +)
 │   │               │   │       │               │       ├── Term
-│   │               │   │       │               │       │   ├── SignedFactor
+│   │               │   │       │               │       │   ├── Signed-factor
 │   │               │   │       │               │       │   │   └── Factor
 │   │               │   │       │               │       │   │       └── (NUM, 1)
 │   │               │   │       │               │       │   └── G
@@ -65,9 +65,9 @@ Program
 │   │               │   │       │               └── C
 │   │               │   │       │                   └── epsilon
 │   │               │   │       └── (SYMBOL, ;)
-│   │               │   └── StatementList
+│   │               │   └── Statement-list
 │   │               │       └── epsilon
 │   │               └── (SYMBOL, })
-│   └── DeclarationList
+│   └── Declaration-list
 │       └── epsilon
 └── $

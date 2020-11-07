@@ -32,6 +32,7 @@ def read_first_follow(first_file_name, follow_file_name):
     # print(follow_file)
 
 
-if __name__ == '__main__':
-    read_first_follow("test_first.csv", "test_follow.csv")
+# if __name__ == '__main__':
+#     # read_first_follow("test_first.csv", "test_follow.csv")
+#     read_first_follow("test_first.txt", "test_follow.txt")
 

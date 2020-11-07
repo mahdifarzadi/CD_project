@@ -288,8 +288,10 @@ def parse(input_text):
     # grammar = read_grammar("./parse/test_grammar.txt")
     # (first, follow) = read_first_follow("./parse/test_first.csv", "./parse/test_follow.csv")
     #
-    grammar = read_grammar("./parse/grammar.txt")
-    (first, follow) = read_first_follow("./parse/Firsts.csv", "./parse/Follows.csv")
+    # grammar = read_grammar("./parse/grammar.txt")
+    grammar = read_grammar("./parse/pa2grammar.txt")
+    # (first, follow) = read_first_follow("./parse/Firsts.csv", "./parse/Follows.csv")
+    (first, follow) = read_first_follow("./parse/Firsts.txt", "./parse/Follows.txt")
 
     # for (key, value) in first.items():
     #     print(key, " -> ", value)
