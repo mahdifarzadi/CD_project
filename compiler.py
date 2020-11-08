@@ -1,5 +1,4 @@
 from parse.parser import parse
-# from scanner.scanner import find_tokens
 
 
 # mahdi farzadi  97106176
@@ -20,7 +19,6 @@ def write_file(file_name, data):
 
 def compile():
     input_text = read_file("input.txt")
-    # find_tokens(input_text)
     parse(input_text)
 
 
