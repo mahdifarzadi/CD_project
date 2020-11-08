@@ -60,11 +60,11 @@ def write_syntax_errors(errors):
         for error in errors:
             string += "#"+str(error[0])+" : syntax error, "
             if error[1]==1:
-                string += "Missing "
+                string += "missing "
             elif error[1]==2:
                 string += "illegal "
             elif error[1]==3:
-                string += "Missing "
+                string += "missing "
             elif error[1]==4:
                 string += "unexpected "
 
@@ -193,7 +193,7 @@ def start_parsing(input_text, grammar, parsing_table, first, follow, terminals, 
             if production == "":
                 if token == "$":
                     print("errrrr")
-                    errors.append([line, 4, token_type])
+                    errors.append([line+1, 4, token_type])
                     clean_tree(root, terminals, non_terminals, True)
                     break
                 print("error 2")
