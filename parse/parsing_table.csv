@@ -2,13 +2,13 @@
 Program	Declaration-list $	Declaration-list $	Declaration-list $																										
 Declaration-list	ε	Declaration Declaration-list	Declaration Declaration-list	ε	ε		ε		ε	ε	ε	ε	ε	ε	ε	ε	ε							ε					
 Declaration	synch	Declaration-initial Declaration-prime	Declaration-initial Declaration-prime	synch	synch		synch		synch	synch	synch	synch	synch	synch	synch	synch	synch							synch					
-Declaration-initial		Type-specifier #pid ID	Type-specifier #pid ID	synch	synch	synch		synch																	synch				
+Declaration-initial		Type-specifier ID	Type-specifier ID	synch	synch	synch		synch																	synch				
 Declaration-prime	synch	synch	synch	Fun-declaration-prime	Var-declaration-prime	Var-declaration-prime	synch		synch	synch	synch	synch	synch	synch	synch	synch	synch							synch					
 Var-declaration-prime	synch	synch	synch	synch	;	[ NUM ] ;	synch		synch	synch	synch	synch	synch	synch	synch	synch	synch							synch					
 Fun-declaration-prime	synch	synch	synch	( Params ) Compound-stmt	synch		synch		synch	synch	synch	synch	synch	synch	synch	synch	synch							synch					
 Type-specifier		int	void				synch																						
-Params		int #pid ID Param-prime Param-list	void Param-list-void-abtar																						synch				
-Param-list-void-abtar							#pid ID Param-prime Param-list																		ε				
+Params		int ID Param-prime Param-list	void Param-list-void-abtar																						synch				
+Param-list-void-abtar							ID Param-prime Param-list																		ε				
 Param-list								, Param Param-list																	ε				
 Param		Declaration-initial Param-prime	Declaration-initial Param-prime					synch																	synch				
 Param-prime						[ ]		ε																	ε				
@@ -24,7 +24,7 @@ Switch-stmt				synch	synch		synch		synch	synch	synch	synch	synch	switch ( Expres
 Case-stmts																		Case-stmt Case-stmts	ε					ε					
 Case-stmt																		case NUM : Statement-list	synch					synch					
 Default-stmt																			default : Statement-list					ε					
-Expression				Simple-expression-zegond	synch		#pid ID B	synch							Simple-expression-zegond	Simple-expression-zegond	Simple-expression-zegond								synch		synch		
+Expression				Simple-expression-zegond	synch		ID B	synch							Simple-expression-zegond	Simple-expression-zegond	Simple-expression-zegond								synch		synch		
 B				Simple-expression-prime	Simple-expression-prime	[ Expression ] H		Simple-expression-prime							Simple-expression-prime	Simple-expression-prime				= Expression	Simple-expression-prime	Simple-expression-prime	Simple-expression-prime		Simple-expression-prime		Simple-expression-prime		
 H					G D C			G D C							G D C	G D C				= Expression	G D C	G D C	G D C		G D C		G D C		
 Simple-expression-zegond				Additive-expression-zegond C	synch			synch							Additive-expression-zegond C	Additive-expression-zegond C	Additive-expression-zegond C								synch		synch		
@@ -43,7 +43,7 @@ G					ε			ε							ε	ε					* Signed-factor G	ε	ε		ε		ε
 Signed-factor				Factor	synch		Factor	synch							+ Factor	- Factor	Factor				synch	synch	synch		synch		synch		
 Signed-factor-prime				Factor-prime	Factor-prime			Factor-prime							Factor-prime	Factor-prime					Factor-prime	Factor-prime	Factor-prime		Factor-prime		Factor-prime		
 Signed-factor-zegond				Factor-zegond	synch			synch							+ Factor	- Factor	Factor-zegond				synch	synch	synch		synch		synch		
-Factor				( Expression )	synch		#pid ID Var-call-prime	synch							synch	synch	NUM				synch	synch	synch		synch		synch		
+Factor				( Expression )	synch		ID Var-call-prime	synch							synch	synch	NUM				synch	synch	synch		synch		synch		
 Var-call-prime				( Args )	Var-prime	Var-prime		Var-prime							Var-prime	Var-prime					Var-prime	Var-prime	Var-prime		Var-prime		Var-prime		
 Var-prime					ε	[ Expression ]		ε							ε	ε					ε	ε	ε		ε		ε		
 Factor-prime				( Args )	ε			ε							ε	ε					ε	ε	ε		ε		ε		
