@@ -1,10 +1,13 @@
 import io
+
+import re
 from anytree import Node, RenderTree
 
 from parse.first_follow import read_first_follow
 from parse.grammar import read_grammar
 from parse.parsing_table import generate_parsing_table, read_from_file
 from scanner.scanner import get_next_token
+from code_generation import generator
 
 
 def get_terminals(first, follow):
@@ -109,6 +112,10 @@ def start_parsing(input_text, parsing_table, terminals, non_terminals):
             else:
                 print("error 1")
                 break
+        elif re.search("#\S*",stack[-1]):
+            generator.generate_code(stack[-1])
+            stack.pop()
+
         elif stack[-1] == token or stack[-1] == token_type:
             current_node.name = "(" + token_type + ", " + token + ")"
             advance = True
@@ -239,8 +246,8 @@ def parse(input_text):
     (first, follow) = read_first_follow("./parse/Firsts.txt", "./parse/Follows.txt")
     terminals = get_terminals(first, follow)
     non_terminals = get_non_terminals(first)
-    # parsing_table = generate_parsing_table(non_terminals, terminals, first, follow, grammar)
-    parsing_table = read_from_file("./parse/parsing_table.csv")
+    parsing_table = generate_parsing_table(non_terminals, terminals, first, follow, grammar)
+    #parsing_table = read_from_file("./parse/parsing_table.csv")
 
     (parse_tree_root, errors) = start_parsing(input_text, parsing_table, terminals, non_terminals)
 

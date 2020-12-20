@@ -1,5 +1,7 @@
 import io
 
+import re
+
 
 def generate_parsing_table(non_terminals, terminals, first, follow, grammar):
     parsing_table = [[""] * len(terminals) for i in range(len(non_terminals))]
@@ -14,9 +16,9 @@ def generate_parsing_table(non_terminals, terminals, first, follow, grammar):
                     if "ε" in first[rule]:
                         for t in follow[non_terminal]:
                             parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] = p
-                elif rule != "ε":
+                elif rule != "ε" and not re.match('^#\w+$', rule):
                     parsing_table[non_terminals.index(non_terminal)][terminals.index(rule)] = p
-                else:
+                elif rule == "ε":
                     for t in follow[non_terminal]:
                         parsing_table[non_terminals.index(non_terminal)][terminals.index(t)] = p
                 if rule in terminals or (rule in non_terminals and "ε" not in first[rule]):

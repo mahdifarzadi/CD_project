@@ -4,7 +4,7 @@ Program
 │   │   ├── Declaration-initial
 │   │   │   ├── Type-specifier
 │   │   │   │   └── (KEYWORD, void)
-│   │   │   └── (ID, main)
+│   │   │   └── #pid
 │   │   └── Declaration-prime
 │   │       └── Fun-declaration-prime
 │   │           ├── (SYMBOL, ()
@@ -20,7 +20,7 @@ Program
 │   │               │   │   ├── Declaration-initial
 │   │               │   │   │   ├── Type-specifier
 │   │               │   │   │   │   └── (KEYWORD, int)
-│   │               │   │   │   └── (ID, prod)
+│   │               │   │   │   └── #pid
 │   │               │   │   └── Declaration-prime
 │   │               │   │       └── Var-declaration-prime
 │   │               │   │           └── (SYMBOL, ;)
@@ -29,7 +29,7 @@ Program
 │   │               │       │   ├── Declaration-initial
 │   │               │       │   │   ├── Type-specifier
 │   │               │       │   │   │   └── (KEYWORD, int)
-│   │               │       │   │   └── (ID, i)
+│   │               │       │   │   └── #pid
 │   │               │       │   └── Declaration-prime
 │   │               │       │       └── Var-declaration-prime
 │   │               │       │           └── (SYMBOL, ;)

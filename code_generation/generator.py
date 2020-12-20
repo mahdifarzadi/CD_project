@@ -16,7 +16,7 @@ def getTemp():
 
 def generate_code(action):
     if action == "#pid":
-        print()
+        print("piiid")
         p = findAddr(input)
         semantic_stack.append(p)
 
