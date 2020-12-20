@@ -3,7 +3,7 @@ from anytree import Node, RenderTree
 
 from parse.first_follow import read_first_follow
 from parse.grammar import read_grammar
-from parse.parsing_table import generate_parsing_table
+from parse.parsing_table import generate_parsing_table, read_from_file
 from scanner.scanner import get_next_token
 
 
@@ -239,7 +239,8 @@ def parse(input_text):
     (first, follow) = read_first_follow("./parse/Firsts.txt", "./parse/Follows.txt")
     terminals = get_terminals(first, follow)
     non_terminals = get_non_terminals(first)
-    parsing_table = generate_parsing_table(non_terminals, terminals, first, follow, grammar)
+    # parsing_table = generate_parsing_table(non_terminals, terminals, first, follow, grammar)
+    parsing_table = read_from_file("./parse/parsing_table.csv")
 
     (parse_tree_root, errors) = start_parsing(input_text, parsing_table, terminals, non_terminals)
 

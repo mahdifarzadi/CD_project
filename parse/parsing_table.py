@@ -42,3 +42,12 @@ def write_to_file(parsing_table, terminals, non_terminals):
         text += "\n"
     file = io.open("./parse/parsing_table.csv", mode="w", encoding="utf-8")
     file.write(text)
+
+
+def read_from_file(address):
+    file = io.open(address, mode="r", encoding="utf-8")
+    p = file.read()
+    parsing_table = list()
+    for e in p.split("\n")[1:-1]:
+        parsing_table.append(e.split("\t")[1:-1])
+    return parsing_table
