@@ -54,11 +54,30 @@ def generate_code(action,token):
         print()
 
     elif action == "#pnum":
+        global temp_index
         # print("num")
-        t = get_temp()
+        # t = temp_index
         # p = find_addr(arg)
-        semantic_stack.append(t)
-        program_block.append("(ASSIGN num, #" + str(token) + ", " + str(t) + ", )")
+        semantic_stack.append(temp_index)
+        program_block.append("(ASSIGN num, #" + str(token) + ", " + str(temp_index) + ", )")
+        temp_index += 4
+
+    elif action == "#pop":
+        semantic_stack.pop()
+
+    elif action == "#sign":
+        semantic_stack.append(token)
+
+    elif action == "#signed_num":
+        num = semantic_stack.pop()
+        sign = semantic_stack.pop()
+        if sign == '-':
+            num = -num
+        # global temp_index
+        semantic_stack.append(temp_index)
+        program_block.append("(ASSIGN num, #" + str(num) + ", " + str(temp_index) + ", )")
+        temp_index += 4
+
 
     print(semantic_stack)
     print(symbol_table)

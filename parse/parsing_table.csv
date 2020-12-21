@@ -15,7 +15,7 @@ Param-prime						[ ]		ε																	ε
 Compound-stmt	synch	synch	synch	synch	synch		synch		{ Declaration-list Statement-list }	synch	synch	synch	synch	synch	synch	synch	synch	synch	synch					synch		synch			
 Statement-list				Statement Statement-list	Statement Statement-list		Statement Statement-list		Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	ε	ε					ε					
 Statement				Expression-stmt	Expression-stmt		Expression-stmt		Compound-stmt	Expression-stmt	Selection-stmt	Iteration-stmt	Return-stmt	Switch-stmt	Expression-stmt	Expression-stmt	Expression-stmt	synch	synch					synch		synch			
-Expression-stmt				Expression ;	;		Expression ;		synch	break ;	synch	synch	synch	synch	Expression ;	Expression ;	Expression ;	synch	synch					synch		synch			
+Expression-stmt				Expression ; #pop	;		Expression ; #pop		synch	break ;	synch	synch	synch	synch	Expression ; #pop	Expression ; #pop	Expression ; #pop	synch	synch					synch		synch			
 Selection-stmt				synch	synch		synch		synch	synch	if ( Expression ) Statement else Statement	synch	synch	synch	synch	synch	synch	synch	synch					synch		synch			
 Iteration-stmt				synch	synch		synch		synch	synch	synch	while ( Expression ) Statement	synch	synch	synch	synch	synch	synch	synch					synch		synch			
 Return-stmt				synch	synch		synch		synch	synch	synch	synch	return Return-stmt-prime	synch	synch	synch	synch	synch	synch					synch		synch			
@@ -35,14 +35,14 @@ Additive-expression				Term D	synch		Term D	synch							Term D	Term D	Term D				
 Additive-expression-prime				Term-prime D	Term-prime D			Term-prime D							Term-prime D	Term-prime D					Term-prime D	Term-prime D	Term-prime D		Term-prime D		Term-prime D		
 Additive-expression-zegond				Term-zegond D	synch			synch							Term-zegond D	Term-zegond D	Term-zegond D					synch	synch		synch		synch		
 D					ε			ε							Addop Term D	Addop Term D						ε	ε		ε		ε		
-Addop				synch			synch								+	-	synch												
+Addop				synch			synch								#sign +	#sign -	synch												
 Term				Signed-factor G	synch		Signed-factor G	synch							Signed-factor G	Signed-factor G	Signed-factor G					synch	synch		synch		synch		
 Term-prime				Signed-factor-prime G	Signed-factor-prime G			Signed-factor-prime G							Signed-factor-prime G	Signed-factor-prime G					Signed-factor-prime G	Signed-factor-prime G	Signed-factor-prime G		Signed-factor-prime G		Signed-factor-prime G		
 Term-zegond				Signed-factor-zegond G	synch			synch							Signed-factor-zegond G	Signed-factor-zegond G	Signed-factor-zegond G					synch	synch		synch		synch		
 G					ε			ε							ε	ε					* Signed-factor G	ε	ε		ε		ε		
-Signed-factor				Factor	synch		Factor	synch							+ Factor	- Factor	Factor				synch	synch	synch		synch		synch		
+Signed-factor				Factor	synch		Factor	synch							#sign + Factor #signed_num	#sign - Factor #signed_num	Factor				synch	synch	synch		synch		synch		
 Signed-factor-prime				Factor-prime	Factor-prime			Factor-prime							Factor-prime	Factor-prime					Factor-prime	Factor-prime	Factor-prime		Factor-prime		Factor-prime		
-Signed-factor-zegond				Factor-zegond	synch			synch							+ Factor	- Factor	Factor-zegond				synch	synch	synch		synch		synch		
+Signed-factor-zegond				Factor-zegond	synch			synch							#sign + Factor #signed_num	#sign - Factor #signed_num	Factor-zegond				synch	synch	synch		synch		synch		
 Factor				( Expression )	synch		#pid ID Var-call-prime	synch							synch	synch	#pnum NUM				synch	synch	synch		synch		synch		
 Var-call-prime				( Args )	Var-prime	Var-prime		Var-prime							Var-prime	Var-prime					Var-prime	Var-prime	Var-prime		Var-prime		Var-prime		
 Var-prime					ε	[ Expression ]		ε							ε	ε					ε	ε	ε		ε		ε		
