@@ -1,3 +1,4 @@
+
 semantic_stack = []
 program_block = []
 symbol_table = {}
@@ -14,11 +15,17 @@ def findAddr(symbol):
 def getTemp():
     pass
 
-def generate_code(action):
+def generate_code(action,token):
     if action == "#pid":
-        print("piiid")
-        p = findAddr(input)
-        semantic_stack.append(p)
+        print("pid",token)
+        if token in symbol_table:
+            p = findAddr(input)
+            semantic_stack.append(p)
+        else:
+            symbol_table[symbol_index] = token
+            print(symbol_table)
+            symbol_index = 4
+
 
     elif action == "#add":
         t = getTemp()
