@@ -17,11 +17,15 @@ def get_temp():
     pass
 
 
-def generate_code(action, arg=None):
+def generate_code(action,token):
     if action == "#pid":
-        print("piiid")
-        p = find_addr(arg)
-        semantic_stack.append(p)
+        print("pid", token)
+        if token in symbol_table:
+            p = find_addr(token)
+            semantic_stack.append(p)
+        else:
+            symbol_table[symbol_index] = token
+            print(symbol_table)
         program_block.append("(ASSIGN pid, #0, " + str(p) + ", )")
         print(semantic_stack)
         print(symbol_table)
@@ -50,4 +54,4 @@ def generate_code(action, arg=None):
         t = get_temp()
         # p = find_addr(arg)
         semantic_stack.append(t)
-        program_block.append("(ASSIGN num, #" + str(arg) + ", " + str(t) + ", )")
+        program_block.append("(ASSIGN num, #" + str(token) + ", " + str(t) + ", )")
