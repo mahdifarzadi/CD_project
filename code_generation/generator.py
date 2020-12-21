@@ -90,7 +90,8 @@ def generate_code(action, token):
         op = semantic_stack.pop()
         o2 = semantic_stack.pop()
         semantic_stack.append(temp_index)
-        program_block.append(("(ADD, " if op == "+" else "(SUB, ") + str(o1) + ", " + str(o2) + ", " + str(temp_index) + ")")
+        program_block.append(
+            ("(ADD, " if op == "+" else "(SUB, ") + str(o1) + ", " + str(o2) + ", " + str(temp_index) + ")")
         temp_index += 4
 
     elif action == "#multi":
@@ -100,6 +101,43 @@ def generate_code(action, token):
         semantic_stack.append(temp_index)
         program_block.append("(MULT, " + str(o1) + ", " + str(o2) + ", " + str(temp_index) + ")")
         temp_index += 4
+
+    elif action == "#label":
+        semantic_stack.append(len(program_block) - 1)
+
+    elif action == "#save":
+        program_block.append("")
+        semantic_stack.append(len(program_block) - 1)
+
+    elif action == "#jp":
+        pi = semantic_stack.pop()
+        program_block[pi] = "(JP, " + str(len(program_block)) + ", ,)"
+
+    elif action == "#jpf_save":
+        pi = semantic_stack.pop()
+        i = semantic_stack.pop()
+        semantic_stack.append(len(program_block))
+        program_block.append("")
+        program_block[pi] = "(JPF, " + str(i) + ", " + str(len(program_block)) + ",)"
+
+    elif action == "#while":
+        pi2 = semantic_stack.pop()
+        i = semantic_stack.pop()
+        pi1 = semantic_stack.pop()
+        program_block.append("(JP, " + str(pi1+1) + ", ,)")
+        program_block[pi2] = "(JPF, " + str(i) + ", " + str(len(program_block)) + ",)"
+
+    elif action == "#if_s":
+        semantic_stack.append(token)
+
+    elif action == "#if":
+        o1 = semantic_stack.pop()
+        op = semantic_stack.pop()
+        o2 = semantic_stack.pop()
+        semantic_stack.append(temp_index)
+        program_block.append(("(LT, " if op == "<" else "(EQ, ") + str(o2) + ", " + str(o1) + ", " + str(temp_index) + ")")
+        temp_index += 4
+
 
     print(action, token)
     print(semantic_stack)

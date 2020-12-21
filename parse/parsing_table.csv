@@ -16,8 +16,8 @@ Compound-stmt	synch	synch	synch	synch	synch		synch		{ Declaration-list Statement
 Statement-list				Statement Statement-list	Statement Statement-list		Statement Statement-list		Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	ε	ε					ε						
 Statement				Expression-stmt	Expression-stmt		Expression-stmt		Compound-stmt	Expression-stmt	Selection-stmt	Iteration-stmt	Return-stmt	Switch-stmt	Expression-stmt	Expression-stmt	Expression-stmt	synch	synch					synch		synch				
 Expression-stmt				Expression ; #pop	;		Expression ; #pop		synch	break ;	synch	synch	synch	synch	Expression ; #pop	Expression ; #pop	Expression ; #pop	synch	synch					synch		synch				
-Selection-stmt				synch	synch		synch		synch	synch	if ( Expression ) Statement else Statement	synch	synch	synch	synch	synch	synch	synch	synch					synch		synch				
-Iteration-stmt				synch	synch		synch		synch	synch	synch	while ( Expression ) Statement	synch	synch	synch	synch	synch	synch	synch					synch		synch				
+Selection-stmt				synch	synch		synch		synch	synch	if ( Expression ) #save Statement else #jpf_save Statement #jp	synch	synch	synch	synch	synch	synch	synch	synch					synch		synch				
+Iteration-stmt				synch	synch		synch		synch	synch	synch	while ( #label Expression ) #save Statement #while	synch	synch	synch	synch	synch	synch	synch					synch		synch				
 Return-stmt				synch	synch		synch		synch	synch	synch	synch	return Return-stmt-prime	synch	synch	synch	synch	synch	synch					synch		synch				
 Return-stmt-prime				Expression ;	;		Expression ;		synch	synch	synch	synch	synch	synch	Expression ;	Expression ;	Expression ;	synch	synch					synch		synch				
 Switch-stmt				synch	synch		synch		synch	synch	synch	synch	synch	switch ( Expression ) { Case-stmts Default-stmt }	synch	synch	synch	synch	synch					synch		synch				
@@ -29,8 +29,8 @@ B				Simple-expression-prime	Simple-expression-prime	[ Expression ] H		Simple-ex
 H					G D C			G D C							G D C	G D C				= Expression #assign	G D C	G D C	G D C		G D C		G D C			
 Simple-expression-zegond				Additive-expression-zegond C	synch			synch							Additive-expression-zegond C	Additive-expression-zegond C	Additive-expression-zegond C								synch		synch			
 Simple-expression-prime				Additive-expression-prime C	Additive-expression-prime C			Additive-expression-prime C							Additive-expression-prime C	Additive-expression-prime C					Additive-expression-prime C	Additive-expression-prime C	Additive-expression-prime C		Additive-expression-prime C		Additive-expression-prime C			
-C					ε			ε														Relop Additive-expression	Relop Additive-expression		ε		ε			
-Relop				synch			synch								synch	synch	synch					<	==							
+C					ε			ε														Relop Additive-expression #if	Relop Additive-expression #if		ε		ε			
+Relop				synch			synch								synch	synch	synch					#if_s <	#if_s ==							
 Additive-expression				Term D	synch		Term D	synch							Term D	Term D	Term D								synch		synch			
 Additive-expression-prime				Term-prime D	Term-prime D			Term-prime D							Term-prime D	Term-prime D					Term-prime D	Term-prime D	Term-prime D		Term-prime D		Term-prime D			
 Additive-expression-zegond				Term-zegond D	synch			synch							Term-zegond D	Term-zegond D	Term-zegond D					synch	synch		synch		synch			
@@ -42,7 +42,7 @@ Term-zegond				Signed-factor-zegond G	synch			synch							Signed-factor-zegond G
 G					ε			ε							ε	ε					* Signed-factor #multi G	ε	ε		ε		ε			
 Signed-factor				Factor	synch		Factor	synch							#sign + Factor #s_num	#sign - Factor #s_num	Factor				synch	synch	synch		synch		synch			
 Signed-factor-prime				Factor-prime	Factor-prime			Factor-prime							Factor-prime	Factor-prime					Factor-prime	Factor-prime	Factor-prime		Factor-prime		Factor-prime			
-Signed-factor-zegond				Factor-zegond	synch			synch							#sign + Factor #signed_num	#sign - Factor #signed_num	Factor-zegond				synch	synch	synch		synch		synch			
+Signed-factor-zegond				Factor-zegond	synch			synch							#sign + Factor #s_num	#sign - Factor #s_num	Factor-zegond				synch	synch	synch		synch		synch			
 Factor				( Expression )	synch		#pid ID Var-call-prime	synch							synch	synch	#pnum NUM				synch	synch	synch		synch		synch			
 Var-call-prime				( Args )	Var-prime	Var-prime		Var-prime							Var-prime	Var-prime					Var-prime	Var-prime	Var-prime		Var-prime		Var-prime			
 Var-prime					ε	[ Expression ]		ε							ε	ε					ε	ε	ε		ε		ε			

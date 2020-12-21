@@ -31,8 +31,8 @@ Statement -> Switch-stmt
 Expression-stmt -> Expression ; #pop
 Expression-stmt -> break ;
 Expression-stmt -> ;
-Selection-stmt -> if ( Expression ) Statement else Statement
-Iteration-stmt -> while ( Expression ) Statement
+Selection-stmt -> if ( Expression ) #save Statement else #jpf_save Statement #jp
+Iteration-stmt -> while ( #label Expression ) #save Statement #while
 Return-stmt -> return Return-stmt-prime
 Return-stmt-prime -> ;
 Return-stmt-prime -> Expression ;
@@ -51,10 +51,10 @@ H -> = Expression #assign
 H -> G D C
 Simple-expression-zegond -> Additive-expression-zegond C
 Simple-expression-prime -> Additive-expression-prime C
-C -> Relop Additive-expression
+C -> Relop Additive-expression #if
 C -> ε
-Relop -> <
-Relop -> ==
+Relop -> #if_s <
+Relop -> #if_s ==
 Additive-expression -> Term D
 Additive-expression-prime -> Term-prime D
 Additive-expression-zegond -> Term-zegond D
@@ -71,8 +71,8 @@ Signed-factor -> #sign + Factor #s_num
 Signed-factor -> #sign - Factor #s_num
 Signed-factor -> Factor
 Signed-factor-prime -> Factor-prime
-Signed-factor-zegond -> #sign + Factor #signed_num
-Signed-factor-zegond -> #sign - Factor #signed_num
+Signed-factor-zegond -> #sign + Factor #s_num
+Signed-factor-zegond -> #sign - Factor #s_num
 Signed-factor-zegond -> Factor-zegond
 Factor -> ( Expression )
 Factor -> #pid ID Var-call-prime
