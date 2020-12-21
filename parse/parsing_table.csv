@@ -34,7 +34,7 @@ Relop				synch			synch								synch	synch	synch					<	==
 Additive-expression				Term D	synch		Term D	synch							Term D	Term D	Term D								synch		synch			
 Additive-expression-prime				Term-prime D	Term-prime D			Term-prime D							Term-prime D	Term-prime D					Term-prime D	Term-prime D	Term-prime D		Term-prime D		Term-prime D			
 Additive-expression-zegond				Term-zegond D	synch			synch							Term-zegond D	Term-zegond D	Term-zegond D					synch	synch		synch		synch			
-D					ε			ε							Addop Term D	Addop Term D						ε	ε		ε		ε			
+D					ε			ε							Addop Term #sum D	Addop Term #sum D						ε	ε		ε		ε			
 Addop				synch			synch								#sign +	#sign -	synch													
 Term				Signed-factor G	synch		Signed-factor G	synch							Signed-factor G	Signed-factor G	Signed-factor G					synch	synch		synch		synch			
 Term-prime				Signed-factor-prime G	Signed-factor-prime G			Signed-factor-prime G							Signed-factor-prime G	Signed-factor-prime G					Signed-factor-prime G	Signed-factor-prime G	Signed-factor-prime G		Signed-factor-prime G		Signed-factor-prime G			

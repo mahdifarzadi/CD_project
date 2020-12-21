@@ -1,8 +1,5 @@
 void main( void ) {
         int i;
-        i = 1;
-        int j;
-        j = 2;
+        i = 1 + 2;
         output(i);
-        output(j);
 }

@@ -58,7 +58,7 @@ Relop -> ==
 Additive-expression -> Term D
 Additive-expression-prime -> Term-prime D
 Additive-expression-zegond -> Term-zegond D
-D -> Addop Term D
+D -> Addop Term #sum D
 D -> ε
 Addop -> #sign +
 Addop -> #sign -

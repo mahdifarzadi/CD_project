@@ -85,6 +85,14 @@ def generate_code(action, token):
         p = semantic_stack.pop()
         program_block.append("(PRINT, " + str(p) + ", , )")
 
+    elif action == "#sum":
+        o1 = semantic_stack.pop()
+        op = semantic_stack.pop()
+        o2 = semantic_stack.pop()
+        semantic_stack.append(temp_index)
+        program_block.append(("(ADD, " if op == "+" else "(SUB, ") + str(o1) + ", " + str(o2) + ", " + str(temp_index) + ")")
+        temp_index += 4
+
     print(action, token)
     print(semantic_stack)
     print(symbol_table)
