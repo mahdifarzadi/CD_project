@@ -17,10 +17,11 @@ def get_temp():
     pass
 
 
-def generate_code(action,token):
+def generate_code(action, token):
+    global temp_index
+    global symbol_index
     if action == "#pid":
-        global symbol_index
-        print("pid", token)
+        # print("pid", token)
         if token not in symbol_table.keys():
             symbol_table[token] = symbol_index
             program_block.append("(ASSIGN pid, #0, " + str(symbol_index) + ", )")
@@ -45,6 +46,7 @@ def generate_code(action,token):
         print()
 
     elif action == "#assign":
+        # print("assign")
         op2 = semantic_stack.pop()
         op1 = semantic_stack.pop()
         semantic_stack.append(op1)
@@ -54,11 +56,12 @@ def generate_code(action,token):
         print()
 
     elif action == "#pnum":
-        global temp_index
+
         # print("num")
         # t = temp_index
         # p = find_addr(arg)
         semantic_stack.append(temp_index)
+        # p = semantic_stack.pop()
         program_block.append("(ASSIGN num, #" + str(token) + ", " + str(temp_index) + ", )")
         temp_index += 4
 
@@ -78,7 +81,12 @@ def generate_code(action,token):
         program_block.append("(ASSIGN num, #" + str(num) + ", " + str(temp_index) + ", )")
         temp_index += 4
 
+    elif action == "#print":
+        p = semantic_stack.pop()
+        program_block.append("(PRINT, " + str(p) + ", , )")
 
+    print(action, token)
     print(semantic_stack)
     print(symbol_table)
     print(program_block)
+    print()
