@@ -39,8 +39,8 @@ Addop				synch			synch								#sign +	#sign -	synch
 Term				Signed-factor G	synch		Signed-factor G	synch							Signed-factor G	Signed-factor G	Signed-factor G					synch	synch		synch		synch			
 Term-prime				Signed-factor-prime G	Signed-factor-prime G			Signed-factor-prime G							Signed-factor-prime G	Signed-factor-prime G					Signed-factor-prime G	Signed-factor-prime G	Signed-factor-prime G		Signed-factor-prime G		Signed-factor-prime G			
 Term-zegond				Signed-factor-zegond G	synch			synch							Signed-factor-zegond G	Signed-factor-zegond G	Signed-factor-zegond G					synch	synch		synch		synch			
-G					ε			ε							ε	ε					* Signed-factor G	ε	ε		ε		ε			
-Signed-factor				Factor	synch		Factor	synch							#sign + Factor #signed_num	#sign - Factor #signed_num	Factor				synch	synch	synch		synch		synch			
+G					ε			ε							ε	ε					* Signed-factor #multi G	ε	ε		ε		ε			
+Signed-factor				Factor	synch		Factor	synch							#sign + Factor #s_num	#sign - Factor #s_num	Factor				synch	synch	synch		synch		synch			
 Signed-factor-prime				Factor-prime	Factor-prime			Factor-prime							Factor-prime	Factor-prime					Factor-prime	Factor-prime	Factor-prime		Factor-prime		Factor-prime			
 Signed-factor-zegond				Factor-zegond	synch			synch							#sign + Factor #signed_num	#sign - Factor #signed_num	Factor-zegond				synch	synch	synch		synch		synch			
 Factor				( Expression )	synch		#pid ID Var-call-prime	synch							synch	synch	#pnum NUM				synch	synch	synch		synch		synch			

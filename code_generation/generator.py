@@ -71,7 +71,7 @@ def generate_code(action, token):
     elif action == "#sign":
         semantic_stack.append(token)
 
-    elif action == "#signed_num":
+    elif action == "#s_num":
         num = semantic_stack.pop()
         sign = semantic_stack.pop()
         if sign == '-':
@@ -91,6 +91,14 @@ def generate_code(action, token):
         o2 = semantic_stack.pop()
         semantic_stack.append(temp_index)
         program_block.append(("(ADD, " if op == "+" else "(SUB, ") + str(o1) + ", " + str(o2) + ", " + str(temp_index) + ")")
+        temp_index += 4
+
+    elif action == "#multi":
+        o1 = semantic_stack.pop()
+        # op = semantic_stack.pop()
+        o2 = semantic_stack.pop()
+        semantic_stack.append(temp_index)
+        program_block.append("(MULT, " + str(o1) + ", " + str(o2) + ", " + str(temp_index) + ")")
         temp_index += 4
 
     print(action, token)

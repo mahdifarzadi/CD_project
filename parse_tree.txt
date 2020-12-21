@@ -39,20 +39,11 @@ Program
 │   │               │           │       │       │   ├── Term-zegond
 │   │               │           │       │       │   │   ├── Signed-factor-zegond
 │   │               │           │       │       │   │   │   └── Factor-zegond
-│   │               │           │       │       │   │   │       └── (NUM, 1)
+│   │               │           │       │       │   │   │       └── (NUM, 3)
 │   │               │           │       │       │   │   └── G
 │   │               │           │       │       │   │       └── epsilon
 │   │               │           │       │       │   └── D
-│   │               │           │       │       │       ├── Addop
-│   │               │           │       │       │       │   └── (SYMBOL, +)
-│   │               │           │       │       │       ├── Term
-│   │               │           │       │       │       │   ├── Signed-factor
-│   │               │           │       │       │       │   │   └── Factor
-│   │               │           │       │       │       │   │       └── (NUM, 2)
-│   │               │           │       │       │       │   └── G
-│   │               │           │       │       │       │       └── epsilon
-│   │               │           │       │       │       └── #sum
-│   │               │           │       │       │           └── epsilon
+│   │               │           │       │       │       └── epsilon
 │   │               │           │       │       └── C
 │   │               │           │       │           └── epsilon
 │   │               │           │       └── (SYMBOL, ;)
@@ -80,7 +71,12 @@ Program
 │   │               │                       │           │   │           │       │           │   │   │   └── Factor-prime
 │   │               │                       │           │   │           │       │           │   │   │       └── epsilon
 │   │               │                       │           │   │           │       │           │   │   └── G
-│   │               │                       │           │   │           │       │           │   │       └── epsilon
+│   │               │                       │           │   │           │       │           │   │       ├── (SYMBOL, *)
+│   │               │                       │           │   │           │       │           │   │       ├── Signed-factor
+│   │               │                       │           │   │           │       │           │   │       │   └── Factor
+│   │               │                       │           │   │           │       │           │   │       │       └── (NUM, 2)
+│   │               │                       │           │   │           │       │           │   │       └── #multi
+│   │               │                       │           │   │           │       │           │   │           └── epsilon
 │   │               │                       │           │   │           │       │           │   └── D
 │   │               │                       │           │   │           │       │           │       └── epsilon
 │   │               │                       │           │   │           │       │           └── C

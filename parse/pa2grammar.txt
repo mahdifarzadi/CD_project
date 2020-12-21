@@ -65,10 +65,10 @@ Addop -> #sign -
 Term -> Signed-factor G
 Term-prime -> Signed-factor-prime G
 Term-zegond -> Signed-factor-zegond G
-G -> * Signed-factor G
+G -> * Signed-factor #multi G
 G -> ε
-Signed-factor -> #sign + Factor #signed_num
-Signed-factor -> #sign - Factor #signed_num
+Signed-factor -> #sign + Factor #s_num
+Signed-factor -> #sign - Factor #s_num
 Signed-factor -> Factor
 Signed-factor-prime -> Factor-prime
 Signed-factor-zegond -> #sign + Factor #signed_num
