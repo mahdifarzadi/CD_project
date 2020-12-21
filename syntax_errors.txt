@@ -1,3 +1,2 @@
+#1 : syntax error, missing ID
 #2 : syntax error, missing ID
-#3 : syntax error, missing ID
-#4 : syntax error, missing ID

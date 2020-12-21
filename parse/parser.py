@@ -113,7 +113,7 @@ def start_parsing(input_text, parsing_table, terminals, non_terminals):
                 print("error 1")
                 break
         elif re.search("#\S*",stack[-1]):
-            generator.generate_code(stack[-1])
+            generator.generate_code(stack[-1], token)
             stack.pop()
 
         elif stack[-1] == token or stack[-1] == token_type:
