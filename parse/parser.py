@@ -3,6 +3,7 @@ import io
 import re
 from anytree import Node, RenderTree
 
+from code_generation.generator import write_to_file
 from parse.first_follow import read_first_follow
 from parse.grammar import read_grammar
 from parse.parsing_table import generate_parsing_table, read_from_file
@@ -255,3 +256,4 @@ def parse(input_text):
 
     write_tree(parse_tree_root)
     write_syntax_errors(errors)
+    write_to_file()
