@@ -6,7 +6,7 @@ Declaration-initial -> Type-specifier #pid ID
 Declaration-prime -> Fun-declaration-prime
 Declaration-prime -> Var-declaration-prime
 Var-declaration-prime -> ;
-Var-declaration-prime -> [ #pnum NUM ] ;
+Var-declaration-prime -> [ #pnum NUM ] #init_arr ;
 Fun-declaration-prime -> ( Params ) Compound-stmt
 Type-specifier -> int
 Type-specifier -> void
@@ -45,7 +45,7 @@ Default-stmt -> ε
 Expression -> Simple-expression-zegond
 Expression -> #pid ID B
 B -> = Expression #assign
-B -> [ Expression ] H
+B -> [ Expression ] #access_arr H
 B -> Simple-expression-prime
 H -> = Expression #assign
 H -> G D C
@@ -79,7 +79,7 @@ Factor -> #pid ID Var-call-prime
 Factor -> #pnum NUM
 Var-call-prime -> ( Args )
 Var-call-prime -> Var-prime
-Var-prime -> [ Expression ]
+Var-prime -> [ Expression ] #access_arr
 Var-prime -> ε
 Factor-prime -> ( Args ) #print
 Factor-prime -> ε

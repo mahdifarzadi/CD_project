@@ -1,6 +1,7 @@
 semantic_stack = []
 program_block = []
 symbol_table = {}
+temp_table = {}
 temp_index = 1000
 symbol_index = 500
 
@@ -60,6 +61,7 @@ def generate_code(action, token):
         # print("num")
         # t = temp_index
         # p = find_addr(arg)
+        temp_table[temp_index] = int(token)
         semantic_stack.append(temp_index)
         # p = semantic_stack.pop()
         program_block.append("(ASSIGN, #" + str(token) + ", " + str(temp_index) + ", )")
@@ -72,7 +74,8 @@ def generate_code(action, token):
         semantic_stack.append(token)
 
     elif action == "#s_num":
-        num = semantic_stack.pop()
+        num_t = semantic_stack.pop()
+        num = temp_table[num_t]
         sign = semantic_stack.pop()
         if sign == '-':
             num = -num
@@ -138,6 +141,20 @@ def generate_code(action, token):
         program_block.append(("(LT, " if op == "<" else "(EQ, ") + str(o2) + ", " + str(o1) + ", " + str(temp_index) + ")")
         temp_index += 4
 
+    elif action == "#init_arr":
+        length_t = semantic_stack.pop()
+        for i in range(1, temp_table[length_t]):
+            program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
+            symbol_index += 4
+
+    elif action == "#access_arr":
+        index = semantic_stack.pop()
+        address = semantic_stack.pop()
+        program_block.append("(MULT, #4, "+str(index)+", "+str(temp_index)+")")
+        temp_index += 4
+        semantic_stack.append("@"+str(temp_index))
+        program_block.append("(ADD, "+str(address)+", " + str(temp_index-4) + ", " + str(temp_index) + ")")
+        temp_index += 4
 
     print(action, token)
     print(semantic_stack)
