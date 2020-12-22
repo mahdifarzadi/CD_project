@@ -54,7 +54,7 @@ def generate_code(action, token):
         o2 = semantic_stack.pop()
         semantic_stack.append(temp_index)
         program_block.append(
-            ("(ADD, " if op == "+" else "(SUB, ") + str(o1) + ", " + str(o2) + ", " + str(temp_index) + ")")
+            ("(ADD, " if op == "+" else "(SUB, ") + str(o2) + ", " + str(o1) + ", " + str(temp_index) + ")")
         temp_index += 4
 
     elif action == "#multi":
