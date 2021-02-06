@@ -116,6 +116,38 @@ def generate_code(action, token):
         program_block.append("(ADD, "+str(address)+", " + str(temp_index-4) + ", " + str(temp_index) + ")")
         temp_index += 4
 
+    # phase 4
+    elif action == "#tmp_save":
+        i = len(program_block)
+        program_block.append("(JP, " + str(i+2) + ", ,)")
+        program_block.append("")
+        semantic_stack.append(i+1)
+
+    elif action == "#cmp_save":
+        op1 = semantic_stack.pop()
+        op2 = semantic_stack[-1]
+        program_block.append("(EQ, " + str(op1) + ", " + str(op2) + ", " + str(temp_index) + ")")
+        semantic_stack.append(temp_index)
+        temp_index += 4
+        semantic_stack.append(len(program_block))
+
+    elif action == "#jp_break":
+        program_block.append("(JP, " + str(semantic_stack[-4]) + ", ,)")
+
+    elif action == "#jpf_switch":
+        ind = semantic_stack[-1]
+        i = len(program_block)
+        program_block[ind] = "(JPF, " + str(semantic_stack[-2]) + ", " + str(i) + ",)"
+        semantic_stack.pop()
+        semantic_stack.pop()
+
+    elif action == "#jp_switch":
+        i = len(program_block)
+        ind = semantic_stack[-2]
+        program_block[ind] = "(JP, " + str(i) + ", ,)"
+        semantic_stack.pop()
+        semantic_stack.pop()
+
     print(action, token)
     print(semantic_stack)
     print(symbol_table)

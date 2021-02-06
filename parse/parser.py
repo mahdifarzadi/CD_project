@@ -237,7 +237,7 @@ def start_parsing(input_text, parsing_table, terminals, non_terminals):
                     if t != "ε":
                         stack.append(t)
         else:
-            print("error 3")
+            print("error 3 ", token, line)
             break
     clean_tree(root, terminals, non_terminals, False)
     return root, errors
