@@ -1,16 +1,11 @@
-/* == T8 == */
-void main(void)
-{
-    int i = 3;
+//int a;
 
-    switch(i){
-        case 0:
-            output(0);
-            break;
-        case 1:
-            output(1);
-            break;
-        default:
-            output(2);
-    }
+void foo(int a){
+	//output(a);
+	a = 1;
+}
+
+
+void main(void){
+	foo(2);
 }

@@ -1,2 +1,1 @@
-#4 : syntax error, illegal =
-#4 : syntax error, missing Declaration-prime
+There is no syntax error.

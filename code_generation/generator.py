@@ -1,20 +1,113 @@
 semantic_stack = []
 program_block = []
-symbol_table = {}
+symbol_addr = {}
 temp_table = {}
 temp_index = 1000
 symbol_index = 500
+
+# symbol_index = 0
+symbol_table = {}
+scope_stack = [0]  # to do
+cur_scope = 1
+num_args = 1
+
+functions = {}
+
+
+symbol_addr["output"] = symbol_index
+symbol_table[symbol_index] = ["output", "func", "", 1, cur_scope, "void"]
+symbol_index += 4
 
 
 def generate_code(action, token):
     global temp_index
     global symbol_index
+    global cur_scope
+    global num_args
     if action == "#pid":
-        if token not in symbol_table.keys():
-            symbol_table[token] = symbol_index
+        # semantic_stack.append(token)
+        if token not in symbol_addr.keys():
+            # name = semantic_stack.pop()
+            type = semantic_stack.pop()
+            symbol_addr[token] = symbol_index
+            symbol_table[symbol_index] = [token, "var", type, 0, cur_scope, ""]
             program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
             symbol_index += 4
-        semantic_stack.append(symbol_table[token])
+            # print("err")
+        # else:
+        semantic_stack.append(symbol_addr[token])
+
+    elif action == "#ptype":
+        semantic_stack.append(token)
+
+    elif action == "#pvar":
+        semantic_stack.append(token)
+
+    elif action == "#var_dec":
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        name = semantic_stack.pop()
+        type = semantic_stack.pop()
+        symbol_addr[name] = symbol_index
+        symbol_table[symbol_index] = [name, "var", type, 0, cur_scope, ""]
+        program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
+        symbol_index += 4
+
+    elif action == "#func_dec":
+        # to doooooooooooo array
+        print("................................")
+        name = semantic_stack.pop()
+        type = semantic_stack.pop()
+        symbol_addr[name] = symbol_index
+        symbol_table[symbol_index] = [name, "func", "", 0, cur_scope, type, len(program_block)]
+        # program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
+        symbol_index += 4
+        # semantic_stack.append("*func")
+        cur_scope += 1
+        functions[name] = []
+
+    elif action == "#add_param":
+        name = semantic_stack.pop()
+        type = semantic_stack.pop()
+        symbol_addr[name] = symbol_index
+        symbol_table[symbol_index] = [name, "var", type, 0, cur_scope, ""]
+        # program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
+        functions[symbol_table[symbol_index - num_args * 4][0]].append(symbol_table[symbol_index])
+        num_args += 1
+        symbol_index += 4
+
+    elif action == "#add_params":
+        symbol_table[symbol_index - num_args * 4][3] = num_args - 1
+        if symbol_table[symbol_index - num_args * 4][0] != "main":
+            semantic_stack.append(len(program_block))
+            program_block.append("")
+            print(symbol_index, num_args)
+            symbol_table[symbol_index - num_args * 4][6] = len(program_block)
+        num_args = 1
+
+    elif action == "#func_end":
+        cur_scope -= 1
+        # remove scope variables
+        to_remove = [key for key in symbol_table if symbol_table[key][4] > cur_scope]
+        for key in to_remove:
+            symbol_table.pop(key)
+
+        # to do pb
+        if list(functions)[-1] != "main":
+            program_block[semantic_stack.pop()] = "(JP, " + str(len(program_block)) + ", ,)"
+
+    elif action == "#func_call":
+        num_args = 0
+        pass
+
+    elif action == "#get_arg":
+        num_args += 1
+        pass
+
+    elif action == "#get_args":
+        print(semantic_stack, num_args)
+        print(semantic_stack[-num_args:])
+        num_args = 0
+        pass
 
     elif action == "#assign":
         op2 = semantic_stack.pop()
@@ -103,9 +196,10 @@ def generate_code(action, token):
 
     elif action == "#init_arr":
         length_t = semantic_stack.pop()
-        for i in range(1, temp_table[length_t]):
-            program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
-            symbol_index += 4
+        # for i in range(1, temp_table[length_t]):
+        #     program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
+        #     symbol_index += 4
+        print("to doooooooooooooooo")
 
     elif action == "#access_arr":
         index = semantic_stack.pop()
@@ -148,10 +242,20 @@ def generate_code(action, token):
         semantic_stack.pop()
         semantic_stack.pop()
 
+    # function
+    elif action == "#fun_dec":
+        print("***************************", token, semantic_stack)
+        pass
+
+    elif action == "#fun_call":
+        pass
+
     print(action, token)
-    print(semantic_stack)
-    print(symbol_table)
-    print(program_block)
+    print("semantic_stack: ", semantic_stack)
+    print("symbol_table: ", symbol_table)
+    print("symbol_addr: ", symbol_addr)
+    print("program_block: ", program_block)
+    print("functions: ", functions)
     print()
 
 

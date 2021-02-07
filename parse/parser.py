@@ -106,17 +106,20 @@ def start_parsing(input_text, parsing_table, terminals, non_terminals):
         token_type = look_ahead[0][0]
         line = look_ahead[1]
 
-        if stack[-1] == "$":
+        if re.search('^#\w+$', stack[-1]):
+            # print(stack, token)
+            generator.generate_code(stack[-1], token)
+            stack.pop()
+            advance = False
+
+        elif stack[-1] == "$":
             if token == "$":
                 print("ACCEPT")
                 break
             else:
                 print("error 1")
+                # print(stack, token)
                 break
-        elif re.search('^#\w+$',stack[-1]):
-            generator.generate_code(stack[-1], token)
-            stack.pop()
-            advance = False
 
         elif stack[-1] == token or stack[-1] == token_type:
             current_node.name = "(" + token_type + ", " + token + ")"
@@ -251,6 +254,7 @@ def parse(input_text):
     non_terminals = get_non_terminals(first)
     parsing_table = generate_parsing_table(non_terminals, terminals, first, follow, grammar)
     #parsing_table = read_from_file("./parse/parsing_table.csv")
+    # print(*parsing_table, sep="\n")
 
     (parse_tree_root, errors) = start_parsing(input_text, parsing_table, terminals, non_terminals)
 
