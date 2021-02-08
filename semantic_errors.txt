@@ -1,1 +1,3 @@
-9 : Semantic Error! 15 : Semantic Error! 
+#9 : Semantic Error! 'c' is not defined
+#15 : Semantic Error! Illegal type of void for 'cs'
+#16 : Semantic Error! Mismatch in numbers of arguments of 'foo'.

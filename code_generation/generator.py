@@ -344,12 +344,22 @@ def write_to_file():
 def write_semantic_errors():
     string = ""
     for e in semantic_errors:
+        string += "#"
         string += str(e[0])
         string += " : Semantic Error! "
         if e[2] == 'void':
             string += "Illegal type of void for '"
             string += e[1]
-            string += '\'\n'
-            
+            string += '\''
+        elif e[2] == 'num_args':
+            string += "Mismatch in numbers of arguments of \'"
+            string += e[1]
+            string += '\'.'
+        elif e[2] == "undefined":
+            string += "\'"
+            string += e[1]
+            string += "\' is not defined"
+        string += '\n'
+
     with open("semantic_errors.txt", 'w') as file:
         file.write(string)

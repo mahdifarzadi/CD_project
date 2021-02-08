@@ -239,7 +239,16 @@ Program
 │                               │   │       │           ├── (SYMBOL, ])
 │                               │   │       │           └── (SYMBOL, ;)
 │                               │   │       └── Declaration-list
-│                               │   │           └── epsilon
+│                               │   │           ├── Declaration
+│                               │   │           │   ├── Declaration-initial
+│                               │   │           │   │   ├── #ptype
+│                               │   │           │   │   │   └── (KEYWORD, void)
+│                               │   │           │   │   └── (ID, cs)
+│                               │   │           │   └── Declaration-prime
+│                               │   │           │       └── Var-declaration-prime
+│                               │   │           │           └── (SYMBOL, ;)
+│                               │   │           └── Declaration-list
+│                               │   │               └── epsilon
 │                               │   ├── Statement-list
 │                               │   │   ├── Statement
 │                               │   │   │   └── Expression-stmt
