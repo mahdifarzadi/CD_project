@@ -264,7 +264,7 @@ def generate_code(action, token, line):
         name = semantic_stack.pop()
         type = semantic_stack.pop()
         if type == 'void':
-            semantic_errors.append([name,'void'])
+            semantic_errors.append([line,name,'void'])
         symbol_addr[name] = symbol_index
         symbol_table[symbol_index] = [name, "arr", type, 0, cur_scope, ""]
         program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
@@ -319,14 +319,19 @@ def generate_code(action, token, line):
 
 
 def write_to_file():
-    string = ""
-    for i, p in enumerate(program_block):
-        string += str(i)
-        string += "\t"
-        string += p
-        string += "\n"
-    with open("output.txt", 'w') as file:
-        file.write(string)
+    if semantic_errors is None:
+        string = ""
+        for i, p in enumerate(program_block):
+            string += str(i)
+            string += "\t"
+            string += p
+            string += "\n"
+        with open("output.txt", 'w') as file:
+            file.write(string)
+    else:
+        string = "The code has not been generated."
+        with open("output.txt", 'w') as file:
+            file.write(string)
 
 def write_semantic_errors():
     string = ""
@@ -334,9 +339,9 @@ def write_semantic_errors():
         string += str(e[0])
         string += " : Semantic Error! "
         if e[2] == 'void':
-            string += "Illegal type of void for "
+            string += "Illegal type of void for '"
             string += e[1]
-            string += '\n'
-
+            string += '\'\n'
+            
     with open("semantic_errors.txt", 'w') as file:
         file.write(string)

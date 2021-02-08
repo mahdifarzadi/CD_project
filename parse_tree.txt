@@ -25,7 +25,28 @@ Program
 │               │   │   │       └── Var-declaration-prime
 │               │   │   │           └── (SYMBOL, ;)
 │               │   │   └── Declaration-list
-│               │   │       └── epsilon
+│               │   │       ├── Declaration
+│               │   │       │   ├── Declaration-initial
+│               │   │       │   │   ├── #ptype
+│               │   │       │   │   │   └── (KEYWORD, int)
+│               │   │       │   │   └── (ID, a)
+│               │   │       │   └── Declaration-prime
+│               │   │       │       └── Var-declaration-prime
+│               │   │       │           └── (SYMBOL, ;)
+│               │   │       └── Declaration-list
+│               │   │           ├── Declaration
+│               │   │           │   ├── Declaration-initial
+│               │   │           │   │   ├── #ptype
+│               │   │           │   │   │   └── (KEYWORD, void)
+│               │   │           │   │   └── (ID, c)
+│               │   │           │   └── Declaration-prime
+│               │   │           │       └── Var-declaration-prime
+│               │   │           │           ├── (SYMBOL, [)
+│               │   │           │           ├── (NUM, 5)
+│               │   │           │           ├── (SYMBOL, ])
+│               │   │           │           └── #init_arr
+│               │   │           └── Declaration-list
+│               │   │               └── epsilon
 │               │   ├── Statement-list
 │               │   │   └── epsilon
 │               │   └── (SYMBOL, })
