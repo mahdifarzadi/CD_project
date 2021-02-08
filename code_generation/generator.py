@@ -35,13 +35,16 @@ def generate_code(action, token, line):
     if action == "#pid":
         # semantic_stack.append(token)
         if token not in symbol_addr.keys():
-            # name = semantic_stack.pop()
-            type = semantic_stack.pop()
+            semantic_errors.append([line, token, "undefined"])
+            # return
+            # # name = semantic_stack.pop()
+            # type = semantic_stack.pop()
+            type = "undefined"
             symbol_addr[token] = symbol_index
             symbol_table[symbol_index] = [token, "var", type, 0, cur_scope, ""]
             program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
             symbol_index += 4
-            # print("err")
+            # # print("err")
         # else:
         semantic_stack.append(symbol_addr[token])
 
@@ -135,6 +138,9 @@ def generate_code(action, token, line):
         func_name_addr = semantic_stack.pop()
         func_name = symbol_table[func_name_addr][0]
         print(func_name, args)
+
+        if num_args != symbol_table[func_name_addr][3]:
+            semantic_errors.append([line, func_name, "num_args"])
         num_args = 1
 
         # output
@@ -145,6 +151,8 @@ def generate_code(action, token, line):
         else:
 
             for i, a in enumerate(functions[func_name]):
+                # if a[1] != symbol_table[args[i]][1]:
+                #     semantic_errors.append([line, func_name, "type", "argument "+str(i+1), a[1], symbol_table[args[i]][1]])
                 program_block.append("(ASSIGN, " + str(args[i]) + ", " + str(symbol_addr[a[0]]) + ", )")
 
             # program_block.append("(ASSIGN, #" + str(len(program_block)+3) + ", " + str(temp_index) + ", )")
