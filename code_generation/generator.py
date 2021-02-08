@@ -266,7 +266,7 @@ def generate_code(action, token):
         for i in range(1, temp_table[length_t]):
             program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
             symbol_index += 4
-        print("to doooooooooooooooo")
+        # print("to doooooooooooooooo")
 
     elif action == "#access_arr":
         index = semantic_stack.pop()
@@ -278,46 +278,30 @@ def generate_code(action, token):
         temp_index += 4
 
     # phase 4
-    elif action == "#tmp_save":
-        i = len(program_block)
-        program_block.append("(JP, " + str(i+2) + ", ,)")
+    elif action == "#save_switch":
+        program_block.append("(JP, " + str(len(program_block)+2) + ", ,)")
         program_block.append("")
-        semantic_stack.append(i+1)
+        semantic_stack.append(len(program_block)-1)
 
-    elif action == "#cmp_save":
-        op1 = semantic_stack.pop()
-        op2 = semantic_stack[-1]
-        program_block.append("(EQ, " + str(op1) + ", " + str(op2) + ", " + str(temp_index) + ")")
+    elif action == "#case":
+        program_block.append("(EQ, " + str(semantic_stack.pop()) + ", " + str(semantic_stack[-1]) + ", " + str(temp_index) + ")")
         semantic_stack.append(temp_index)
         temp_index += 4
         semantic_stack.append(len(program_block))
         program_block.append("")
 
-    elif action == "#jp_break":
+    elif action == "#switch":
+        p_i = semantic_stack.pop()
+        check = semantic_stack.pop()
+        program_block[p_i] = "(JPF, " + str(check) + ", " + str(len(program_block)) + ",)"
+
+    elif action == "#switch_end":
+        semantic_stack.pop()
+        p_i = semantic_stack.pop()
+        program_block[p_i] = "(JP, " + str(len(program_block)) + ", ,)"
+
+    elif action == "#break":
         program_block.append("(JP, " + str(semantic_stack[-4]) + ", ,)")
-
-    elif action == "#jpf_switch":
-        ind = semantic_stack[-1]
-        i = len(program_block)
-        program_block[ind] = "(JPF, " + str(semantic_stack[-2]) + ", " + str(i) + ",)"
-        semantic_stack.pop()
-        semantic_stack.pop()
-
-    elif action == "#jp_switch":
-        i = len(program_block)
-        ind = semantic_stack[-2]
-        program_block[ind] = "(JP, " + str(i) + ", ,)"
-        semantic_stack.pop()
-        semantic_stack.pop()
-
-    # function
-    elif action == "#fun_dec":
-        print("***************************", token, semantic_stack)
-        pass
-
-    elif action == "#fun_call":
-        pass
-
 
     print("semantic_stack: ", semantic_stack)
     print("symbol_table: ", symbol_table)

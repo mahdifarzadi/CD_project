@@ -29,17 +29,17 @@ Statement -> Iteration-stmt
 Statement -> Return-stmt
 Statement -> Switch-stmt
 Expression-stmt -> Expression #pop ;
-Expression-stmt -> break #jp_break ;
+Expression-stmt -> break #break ;
 Expression-stmt -> ;
 Selection-stmt -> if ( Expression ) #save Statement else #jpf_save Statement #jp
 Iteration-stmt -> while ( #label Expression ) #save Statement #while
 Return-stmt -> return Return-stmt-prime
 Return-stmt-prime -> #return_void ;
 Return-stmt-prime -> Expression #return_value ;
-Switch-stmt -> switch #tmp_save ( Expression ) { Case-stmts Default-stmt } #jp_switch
+Switch-stmt -> switch #save_switch ( Expression ) { Case-stmts Default-stmt } #switch_end
 Case-stmts -> Case-stmt Case-stmts
 Case-stmts -> ε
-Case-stmt -> case #pnum NUM : #cmp_save Statement-list #jpf_switch
+Case-stmt -> case #pnum NUM : #case Statement-list #switch
 Default-stmt -> default : Statement-list
 Default-stmt -> ε
 Expression -> Simple-expression-zegond
