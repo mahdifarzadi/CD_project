@@ -291,6 +291,7 @@ def generate_code(action, token):
         semantic_stack.append(temp_index)
         temp_index += 4
         semantic_stack.append(len(program_block))
+        program_block.append("")
 
     elif action == "#jp_break":
         program_block.append("(JP, " + str(semantic_stack[-4]) + ", ,)")
