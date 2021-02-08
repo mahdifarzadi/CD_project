@@ -327,7 +327,7 @@ def generate_code(action, token, line):
 
 
 def write_to_file():
-    if semantic_errors is None:
+    if len(semantic_errors) == 0:
         string = ""
         for i, p in enumerate(program_block):
             string += str(i)

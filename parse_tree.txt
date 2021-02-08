@@ -182,14 +182,12 @@ Program
 │               │   │           │       │       │           │           │       ├── Addop
 │               │   │           │       │       │           │           │       │   └── (SYMBOL, +)
 │               │   │           │       │       │           │           │       ├── Term
-│               │   │           │       │       │           │           │       │   ├── Signed-factor
-│               │   │           │       │       │           │           │       │   │   └── Factor
-│               │   │           │       │       │           │           │       │   │       ├── (ID, c)
-│               │   │           │       │       │           │           │       │   │       └── Var-call-prime
-│               │   │           │       │       │           │           │       │   │           └── Var-prime
-│               │   │           │       │       │           │           │       │   │               └── epsilon
-│               │   │           │       │       │           │           │       │   └── G
-│               │   │           │       │       │           │           │       │       └── epsilon
+│               │   │           │       │       │           │           │       │   └── Signed-factor
+│               │   │           │       │       │           │           │       │       ├── (SYMBOL, -)
+│               │   │           │       │       │           │           │       │       ├── Factor
+│               │   │           │       │       │           │           │       │       │   └── (NUM, 2)
+│               │   │           │       │       │           │           │       │       └── #s_num
+│               │   │           │       │       │           │           │       │           └── epsilon
 │               │   │           │       │       │           │           │       └── #sum
 │               │   │           │       │       │           │           │           └── epsilon
 │               │   │           │       │       │           │           └── C
@@ -227,28 +225,7 @@ Program
 │                               │   │   │       └── Var-declaration-prime
 │                               │   │   │           └── (SYMBOL, ;)
 │                               │   │   └── Declaration-list
-│                               │   │       ├── Declaration
-│                               │   │       │   ├── Declaration-initial
-│                               │   │       │   │   ├── #ptype
-│                               │   │       │   │   │   └── (KEYWORD, int)
-│                               │   │       │   │   └── (ID, a)
-│                               │   │       │   └── Declaration-prime
-│                               │   │       │       └── Var-declaration-prime
-│                               │   │       │           ├── (SYMBOL, [)
-│                               │   │       │           ├── (NUM, 10)
-│                               │   │       │           ├── (SYMBOL, ])
-│                               │   │       │           └── (SYMBOL, ;)
-│                               │   │       └── Declaration-list
-│                               │   │           ├── Declaration
-│                               │   │           │   ├── Declaration-initial
-│                               │   │           │   │   ├── #ptype
-│                               │   │           │   │   │   └── (KEYWORD, void)
-│                               │   │           │   │   └── (ID, cs)
-│                               │   │           │   └── Declaration-prime
-│                               │   │           │       └── Var-declaration-prime
-│                               │   │           │           └── (SYMBOL, ;)
-│                               │   │           └── Declaration-list
-│                               │   │               └── epsilon
+│                               │   │       └── epsilon
 │                               │   ├── Statement-list
 │                               │   │   ├── Statement
 │                               │   │   │   └── Expression-stmt
@@ -281,22 +258,7 @@ Program
 │                               │   │   │       │       │           │   │           │       │       └── C
 │                               │   │   │       │       │           │   │           │       │           └── epsilon
 │                               │   │   │       │       │           │   │           │       └── #get_arg
-│                               │   │   │       │       │           │   │           │           ├── (SYMBOL, ,)
-│                               │   │   │       │       │           │   │           │           ├── Expression
-│                               │   │   │       │       │           │   │           │           │   └── Simple-expression-zegond
-│                               │   │   │       │       │           │   │           │           │       ├── Additive-expression-zegond
-│                               │   │   │       │       │           │   │           │           │       │   ├── Term-zegond
-│                               │   │   │       │       │           │   │           │           │       │   │   ├── Signed-factor-zegond
-│                               │   │   │       │       │           │   │           │           │       │   │   │   └── Factor-zegond
-│                               │   │   │       │       │           │   │           │           │       │   │   │       └── (NUM, 1)
-│                               │   │   │       │       │           │   │           │           │       │   │   └── G
-│                               │   │   │       │       │           │   │           │           │       │   │       └── epsilon
-│                               │   │   │       │       │           │   │           │           │       │   └── D
-│                               │   │   │       │       │           │   │           │           │       │       └── epsilon
-│                               │   │   │       │       │           │   │           │           │       └── C
-│                               │   │   │       │       │           │   │           │           │           └── epsilon
-│                               │   │   │       │       │           │   │           │           └── #get_arg
-│                               │   │   │       │       │           │   │           │               └── epsilon
+│                               │   │   │       │       │           │   │           │           └── epsilon
 │                               │   │   │       │       │           │   │           ├── (SYMBOL, ))
 │                               │   │   │       │       │           │   │           └── #get_args
 │                               │   │   │       │       │           │   │               └── epsilon
@@ -364,20 +326,18 @@ Program
 │                               │   │           │       │       │           │   │           ├── Args
 │                               │   │           │       │       │           │   │           │   └── Arg-list
 │                               │   │           │       │       │           │   │           │       ├── Expression
-│                               │   │           │       │       │           │   │           │       │   ├── (ID, a)
-│                               │   │           │       │       │           │   │           │       │   └── B
-│                               │   │           │       │       │           │   │           │       │       └── Simple-expression-prime
-│                               │   │           │       │       │           │   │           │       │           ├── Additive-expression-prime
-│                               │   │           │       │       │           │   │           │       │           │   ├── Term-prime
-│                               │   │           │       │       │           │   │           │       │           │   │   ├── Signed-factor-prime
-│                               │   │           │       │       │           │   │           │       │           │   │   │   └── Factor-prime
-│                               │   │           │       │       │           │   │           │       │           │   │   │       └── epsilon
-│                               │   │           │       │       │           │   │           │       │           │   │   └── G
-│                               │   │           │       │       │           │   │           │       │           │   │       └── epsilon
-│                               │   │           │       │       │           │   │           │       │           │   └── D
-│                               │   │           │       │       │           │   │           │       │           │       └── epsilon
-│                               │   │           │       │       │           │   │           │       │           └── C
-│                               │   │           │       │       │           │   │           │       │               └── epsilon
+│                               │   │           │       │       │           │   │           │       │   └── Simple-expression-zegond
+│                               │   │           │       │       │           │   │           │       │       ├── Additive-expression-zegond
+│                               │   │           │       │       │           │   │           │       │       │   ├── Term-zegond
+│                               │   │           │       │       │           │   │           │       │       │   │   ├── Signed-factor-zegond
+│                               │   │           │       │       │           │   │           │       │       │   │   │   └── Factor-zegond
+│                               │   │           │       │       │           │   │           │       │       │   │   │       └── (NUM, 10)
+│                               │   │           │       │       │           │   │           │       │       │   │   └── G
+│                               │   │           │       │       │           │   │           │       │       │   │       └── epsilon
+│                               │   │           │       │       │           │   │           │       │       │   └── D
+│                               │   │           │       │       │           │   │           │       │       │       └── epsilon
+│                               │   │           │       │       │           │   │           │       │       └── C
+│                               │   │           │       │       │           │   │           │       │           └── epsilon
 │                               │   │           │       │       │           │   │           │       └── #get_arg
 │                               │   │           │       │       │           │   │           │           └── epsilon
 │                               │   │           │       │       │           │   │           ├── (SYMBOL, ))
