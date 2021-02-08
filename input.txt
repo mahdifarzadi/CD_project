@@ -1,11 +1,18 @@
-//int a;
-
-void foo(int a){
-	//output(a);
-	a = 1;
+/*===== Sample 1 =====*/
+int foo(int x){
+	if (x < 0){
+		output(x);
+		return 1;
+	}
+	else {
+		output(x);
+		return x + -2;
+	}
 }
-
-
 void main(void){
-	foo(2);
+	int i;
+	i= foo(0);
+	output(i);
+	i=foo(10);
+	output(i);
 }

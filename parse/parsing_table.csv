@@ -5,9 +5,9 @@ Declaration	synch	Declaration-initial Declaration-prime	Declaration-initial Decl
 Declaration-initial		#ptype Type-specifier #pvar ID	#ptype Type-specifier #pvar ID	synch	synch	synch		synch																	synch					
 Declaration-prime	synch	synch	synch	Fun-declaration-prime	Var-declaration-prime	Var-declaration-prime	synch		synch	synch	synch	synch	synch	synch	synch	synch	synch							synch						
 Var-declaration-prime	synch	synch	synch	synch	#var_dec ;	[ #pnum NUM ] #init_arr ;	synch		synch	synch	synch	synch	synch	synch	synch	synch	synch							synch						
-Fun-declaration-prime	synch	synch	synch	#func_dec ( Params ) #add_params Compound-stmt #func_end	synch		synch		synch	synch	synch	synch	synch	synch	synch	synch	synch							synch						
+Fun-declaration-prime	synch	synch	synch	#func_dec ( Params ) Compound-stmt #func_end	synch		synch		synch	synch	synch	synch	synch	synch	synch	synch	synch							synch						
 Type-specifier		int	void				synch																							
-Params		#ptype int #pvar ID Param-prime #add_param Param-list	void Param-list-void-abtar																						synch					
+Params		#ptype int #pvar ID Param-prime #add_param Param-list #add_params	void Param-list-void-abtar																						synch					
 Param-list-void-abtar							ID Param-prime Param-list																		ε					
 Param-list								, Param Param-list																	ε					
 Param		Declaration-initial Param-prime #add_param	Declaration-initial Param-prime #add_param					synch																	synch					
@@ -15,11 +15,11 @@ Param-prime						[ ]		ε																	ε
 Compound-stmt	synch	synch	synch	synch	synch		synch		{ Declaration-list Statement-list }	synch	synch	synch	synch	synch	synch	synch	synch	synch	synch					synch		synch				
 Statement-list				Statement Statement-list	Statement Statement-list		Statement Statement-list		Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	Statement Statement-list	ε	ε					ε						
 Statement				Expression-stmt	Expression-stmt		Expression-stmt		Compound-stmt	Expression-stmt	Selection-stmt	Iteration-stmt	Return-stmt	Switch-stmt	Expression-stmt	Expression-stmt	Expression-stmt	synch	synch					synch		synch				
-Expression-stmt				Expression ; #pop	;		Expression ; #pop		synch	break #jp_break ;	synch	synch	synch	synch	Expression ; #pop	Expression ; #pop	Expression ; #pop	synch	synch					synch		synch				
+Expression-stmt				Expression #pop ;	;		Expression #pop ;		synch	break #jp_break ;	synch	synch	synch	synch	Expression #pop ;	Expression #pop ;	Expression #pop ;	synch	synch					synch		synch				
 Selection-stmt				synch	synch		synch		synch	synch	if ( Expression ) #save Statement else #jpf_save Statement #jp	synch	synch	synch	synch	synch	synch	synch	synch					synch		synch				
 Iteration-stmt				synch	synch		synch		synch	synch	synch	while ( #label Expression ) #save Statement #while	synch	synch	synch	synch	synch	synch	synch					synch		synch				
 Return-stmt				synch	synch		synch		synch	synch	synch	synch	return Return-stmt-prime	synch	synch	synch	synch	synch	synch					synch		synch				
-Return-stmt-prime				Expression ;	;		Expression ;		synch	synch	synch	synch	synch	synch	Expression ;	Expression ;	Expression ;	synch	synch					synch		synch				
+Return-stmt-prime				Expression #return_value ;	#return_void ;		Expression #return_value ;		synch	synch	synch	synch	synch	synch	Expression #return_value ;	Expression #return_value ;	Expression #return_value ;	synch	synch					synch		synch				
 Switch-stmt				synch	synch		synch		synch	synch	synch	synch	synch	switch #tmp_save ( Expression ) { Case-stmts Default-stmt } #jp_switch	synch	synch	synch	synch	synch					synch		synch				
 Case-stmts																		Case-stmt Case-stmts	ε					ε						
 Case-stmt																		case #pnum NUM : #cmp_save Statement-list #jpf_switch	synch					synch						
