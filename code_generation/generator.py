@@ -131,12 +131,12 @@ def generate_code(action, token):
         func_name_addr = semantic_stack.pop()
         func_name = symbol_table[func_name_addr][0]
         print(func_name, args)
-        num_args = 0
+        num_args = 1
 
         # output
         if func_name == "output":
             program_block.append("(PRINT, " + str(args[0]) + ", , )")
-            semantic_stack.append(temp_index)
+            semantic_stack.append("pop")
 
         else:
 
@@ -156,6 +156,8 @@ def generate_code(action, token):
                 program_block.append("(ASSIGN, @" + str(return_value_pointer) + ", " + str(temp_index) + ", )")
                 semantic_stack.append(temp_index)
                 temp_index += 4
+            else:
+                semantic_stack.append("pop")
 
 
 
@@ -255,9 +257,15 @@ def generate_code(action, token):
 
     elif action == "#init_arr":
         length_t = semantic_stack.pop()
-        # for i in range(1, temp_table[length_t]):
-        #     program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
-        #     symbol_index += 4
+        name = semantic_stack.pop()
+        type = semantic_stack.pop()
+        symbol_addr[name] = symbol_index
+        symbol_table[symbol_index] = [name, "arr", type, 0, cur_scope, ""]
+        program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
+        symbol_index += 4
+        for i in range(1, temp_table[length_t]):
+            program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
+            symbol_index += 4
         print("to doooooooooooooooo")
 
     elif action == "#access_arr":
