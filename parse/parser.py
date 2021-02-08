@@ -108,7 +108,7 @@ def start_parsing(input_text, parsing_table, terminals, non_terminals):
 
         if re.search('^#\w+$', stack[-1]):
             print(stack, token, line)
-            generator.generate_code(stack[-1], token)
+            generator.generate_code(stack[-1], token, line)
             stack.pop()
             advance = False
 

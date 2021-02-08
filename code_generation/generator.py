@@ -23,8 +23,9 @@ symbol_addr["output"] = symbol_index
 symbol_table[symbol_index] = ["output", "func", "", 1, cur_scope, "void"]
 symbol_index += 4
 
+semantic_errors = []
 
-def generate_code(action, token):
+def generate_code(action, token, line):
     global temp_index
     global symbol_index
     global cur_scope
@@ -54,10 +55,13 @@ def generate_code(action, token):
         print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         name = semantic_stack.pop()
         type = semantic_stack.pop()
+        if type == 'void':
+            semantic_errors.append([line,name,"void"])
         symbol_addr[name] = symbol_index
         symbol_table[symbol_index] = [name, "var", type, 0, cur_scope, ""]
         program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
         symbol_index += 4
+
 
     elif action == "#func_dec":
         # to doooooooooooo array
@@ -259,6 +263,8 @@ def generate_code(action, token):
         length_t = semantic_stack.pop()
         name = semantic_stack.pop()
         type = semantic_stack.pop()
+        if type == 'void':
+            semantic_errors.append([name,'void'])
         symbol_addr[name] = symbol_index
         symbol_table[symbol_index] = [name, "arr", type, 0, cur_scope, ""]
         program_block.append("(ASSIGN, #0, " + str(symbol_index) + ", )")
@@ -308,6 +314,7 @@ def generate_code(action, token):
     print("symbol_addr: ", symbol_addr)
     print("program_block: ", program_block)
     print("functions: ", functions)
+    print("semantic_errors: ",semantic_errors)
     print()
 
 
@@ -319,4 +326,17 @@ def write_to_file():
         string += p
         string += "\n"
     with open("output.txt", 'w') as file:
+        file.write(string)
+
+def write_semantic_errors():
+    string = ""
+    for e in semantic_errors:
+        string += str(e[0])
+        string += " : Semantic Error! "
+        if e[2] == 'void':
+            string += "Illegal type of void for "
+            string += e[1]
+            string += '\n'
+
+    with open("semantic_errors.txt", 'w') as file:
         file.write(string)
